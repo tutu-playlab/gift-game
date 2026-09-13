@@ -68,8 +68,7 @@ a:focus-visible {
   border-radius: 50% 50% 46% 54%;
 }
 
-.text-button,
-.reroll-button {
+.text-button {
   padding: 8px 0;
   color: var(--muted);
   background: transparent;
@@ -77,8 +76,7 @@ a:focus-visible {
   cursor: pointer;
 }
 
-.text-button:hover,
-.reroll-button:hover { color: var(--rose-dark); }
+.text-button:hover { color: var(--rose-dark); }
 
 .intro,
 .ending {
@@ -101,7 +99,6 @@ h1 {
   letter-spacing: -.045em;
 }
 
-.intro-copy,
 .ending > p:not(.eyebrow) {
   max-width: 560px;
   margin: 24px auto;
@@ -109,22 +106,6 @@ h1 {
   font-size: 17px;
   line-height: 1.8;
 }
-
-.rule-summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 520px;
-  margin: 32px auto;
-  overflow: hidden;
-  background: rgb(255 255 255 / 72%);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-}
-
-.rule-summary div { padding: 18px 8px; }
-.rule-summary div + div { border-left: 1px solid var(--line); }
-.rule-summary strong { display: block; font-size: 24px; }
-.rule-summary span { color: var(--muted); font-size: 12px; }
 
 .primary-button {
   width: 100%;
@@ -143,33 +124,15 @@ h1 {
 
 .primary-button:hover { background: var(--rose-dark); transform: translateY(-2px); }
 
+.intro .primary-button { margin-top: 32px; }
+
 .game { padding-top: 20px; }
 
-.progress-heading,
 .choice-heading {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 16px;
-}
-
-.step-label,
-.progress-percent { margin: 0; color: var(--muted); font-size: 13px; }
-
-.progress-track {
-  height: 8px;
-  margin: 12px 0 28px;
-  overflow: hidden;
-  background: #f0e5e3;
-  border-radius: 99px;
-}
-
-.progress-bar {
-  width: 0;
-  height: 100%;
-  background: linear-gradient(90deg, var(--rose), #f69383);
-  border-radius: inherit;
-  transition: width .3s ease;
 }
 
 .event-card {
@@ -243,11 +206,6 @@ h1 {
 }
 
 .gift-option.selected:disabled:hover { border-color: var(--rose); }
-
-.reroll-button:disabled {
-  cursor: default;
-  opacity: .5;
-}
 
 .gift-number {
   display: block;

@@ -18,11 +18,6 @@
     start: document.querySelector("#startButton"),
     restart: document.querySelector("#restartButton"),
     playAgain: document.querySelector("#playAgainButton"),
-    reroll: document.querySelector("#rerollButton"),
-    year: document.querySelector("#yearLabel"),
-    step: document.querySelector("#stepLabel"),
-    percent: document.querySelector("#progressPercent"),
-    progress: document.querySelector("#progressBar"),
     icon: document.querySelector("#eventIcon"),
     type: document.querySelector("#eventType"),
     title: document.querySelector("#eventTitle"),
@@ -67,13 +62,6 @@
     return shuffle(includeRing ? [...randomGifts, data.ringGift] : randomGifts);
   }
 
-  function updateProgress() {
-    const completedPercent = Math.round((state.currentIndex / data.events.length) * 100);
-    elements.step.textContent = `第 ${state.currentIndex + 1} / ${data.events.length} 個事件`;
-    elements.percent.textContent = `${completedPercent}%`;
-    elements.progress.style.width = `${completedPercent}%`;
-  }
-
   function renderOptions() {
     elements.grid.replaceChildren();
     state.options.forEach((gift, index) => {
@@ -92,16 +80,13 @@
     clearTransitionTimers();
     state.isTransitioning = false;
     const event = currentEvent();
-    elements.year.textContent = event.year;
     elements.icon.textContent = event.icon;
     elements.type.textContent = event.isTokyo ? "額外任務" : "節日任務";
     elements.title.textContent = event.title;
     elements.prompt.textContent = event.isTokyo ? "出差回來，要帶什麼給她？" : "這次要送她什麼？";
     elements.special.classList.toggle("hidden", !event.isTokyo);
     elements.selection.classList.add("hidden");
-    elements.reroll.disabled = false;
     state.options = createOptions(event);
-    updateProgress();
     renderOptions();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -115,7 +100,6 @@
       option.setAttribute("aria-pressed", option === button ? "true" : "false");
       option.disabled = true;
     });
-    elements.reroll.disabled = true;
     elements.selectedGift.textContent = gift;
     elements.reaction.textContent = data.reactions[Math.floor(Math.random() * data.reactions.length)];
 
@@ -153,13 +137,6 @@
     renderEvent();
   }
 
-  function reroll() {
-    if (state.isTransitioning) return;
-    state.options = createOptions(currentEvent());
-    elements.selection.classList.add("hidden");
-    renderOptions();
-  }
-
   function showEnding() {
     elements.game.classList.add("hidden");
     elements.ending.classList.remove("hidden");
@@ -178,6 +155,5 @@
 
   elements.start.addEventListener("click", startGame);
   elements.playAgain.addEventListener("click", startGame);
-  elements.reroll.addEventListener("click", reroll);
   elements.restart.addEventListener("click", startGame);
 })();

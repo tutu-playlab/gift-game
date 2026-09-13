@@ -20,31 +20,11 @@
       </header>
 
       <section class="intro" id="introScreen" aria-labelledby="introTitle">
-        <p class="eyebrow">RANDOM GIFT PROTOTYPE</p>
         <h1 id="introTitle">每個重要日子，<br />你會送出哪份禮物？</h1>
-        <p class="intro-copy">
-          走過五年的節日與紀念日。這一版不計分，只測試每回合四個隨機選項的感受。
-        </p>
-        <div class="rule-summary" aria-label="測試規則">
-          <div><strong>14</strong><span>個事件</span></div>
-          <div><strong>4</strong><span>個選項</span></div>
-          <div><strong>1/2</strong><span>婚戒頻率</span></div>
-        </div>
         <button class="primary-button" id="startButton" type="button">開始測試</button>
       </section>
 
       <section class="game hidden" id="gameScreen" aria-live="polite">
-        <div class="progress-heading">
-          <div>
-            <p class="eyebrow" id="yearLabel">第一年</p>
-            <p class="step-label" id="stepLabel">第 1 / 14 個事件</p>
-          </div>
-          <span class="progress-percent" id="progressPercent">0%</span>
-        </div>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
-
         <article class="event-card">
           <div class="event-icon" id="eventIcon" aria-hidden="true">🎄</div>
           <p class="event-type" id="eventType">節日任務</p>
@@ -53,20 +33,19 @@
           <div class="special-note hidden" id="specialNote">
             東京出差任務只會出現專屬伴手禮清單
           </div>
+          <section class="selection-panel hidden" id="selectionPanel" aria-live="polite">
+            <p>你選擇了</p>
+            <strong id="selectedGift"></strong>
+            <p class="reaction-label">女友的反應</p>
+            <p class="reaction-text" id="girlfriendReaction"></p>
+          </section>
         </article>
 
         <div class="choice-heading">
           <h3>挑一份禮物</h3>
-          <button class="reroll-button" id="rerollButton" type="button">↻ 重抽這一題</button>
         </div>
         <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
 
-        <section class="selection-panel hidden" id="selectionPanel" aria-live="polite">
-          <p>你選擇了</p>
-          <strong id="selectedGift"></strong>
-          <p class="reaction-label">女友的反應</p>
-          <p class="reaction-text" id="girlfriendReaction"></p>
-        </section>
       </section>
 
       <section class="ending hidden" id="endingScreen" aria-labelledby="endingTitle">
