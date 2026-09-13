@@ -98,6 +98,32 @@
 - Commit 訊息使用簡短繁體中文，或團隊日後決定的一致英文格式。
 - 未經明確要求，不自行 commit、push、merge、建立 Pull Request 或發布正式網站。
 
+## 日常開發與發布 SOP
+
+團隊預設採用「一項工作、一個 branch、一個 Pull Request」的方式。`main` 代表目前可供玩家測試的公開版本；尚未確認的功能不直接進入 `main`。
+
+每次開始新工作時，依序執行並主動提醒使用者目前所在步驟：
+
+1. **同步最新版**：在 `main` 執行 Fetch；若遠端有更新則 Pull。若本機有未保存修改，先釐清歸屬，不直接覆蓋。
+2. **建立工作 branch**：每個獨立功能或修正使用新的 branch。Codex 建立的 branch 使用 `codex/` 前綴，例如 `codex/gift-categories` 或 `codex/fix-mobile-layout`。
+3. **實作需求**：只修改當前任務所需範圍，不混入其他功能或無關格式化。
+4. **本機測試**：依修改內容測試主要流程、JavaScript 錯誤、手機與桌面版面；不要用正式網站取代本機測試。
+5. **檢查 Changes**：向使用者說明預計 commit 的檔案；確認沒有 `node_modules/`、`.DS_Store`、暫存檔、無關 ZIP、私人資料或其他非預期檔案。
+6. **Commit**：使用一句能說明成果的訊息。Commit 只保存當前 branch 的一個修改節點，不代表已公開發布。
+7. **Push branch**：執行公開前檢查並取得使用者確認後，才將工作 branch 上傳 GitHub。Push branch 不應直接改變 GitHub Pages 的公開版本。
+8. **建立 Pull Request**：清楚記錄修改內容、測試方式與已知限制，讓另一位成員檢查。
+9. **合併到 `main`**：只有在功能確認後才 Merge。未經使用者明確要求，不自行 Merge。
+10. **確認 GitHub Pages**：合併後等待自動部署，再檢查正式網址、手機版、重新整理及主要流程。
+
+補充規則：
+
+- GitHub Desktop 出現不熟悉的 Changes、衝突、Push、Pull 或 Publish 提示時，先停止並請 Codex 檢查，不猜測操作。
+- 兩位成員不要同時在同一個 branch 修改；若必須修改同一檔案，先協調工作範圍。
+- 開始一天的工作、切換電腦或接手朋友的修改時，一律先 Fetch／Pull。
+- GitHub Pages 目前從 `main` 發布；一般工作 branch 的 Push 不會更新玩家看到的版本。
+- 若是極小且低風險的單人修改，只有在使用者明確決定後才可省略 Pull Request；兩人協作時仍優先使用完整流程。
+- 發生問題時保留現場，不使用破壞性的 Git 指令；先說明目前 branch、Changes、最近 commit 與遠端狀態。
+
 ## GitHub 公開前檢查
 
 在任何 push、公開 repository、建立公開 Release 或發布 GitHub Pages 之前，必須先進行公開內容檢查並向使用者報告結果。未經使用者確認，不執行公開上傳或發布。
