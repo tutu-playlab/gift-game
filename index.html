@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="測試節日與隨機禮物選項的互動 prototype" />
+    <title>送禮大作戰｜隨機選項測試</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/data.js" defer></script>
+    <script src="js/game.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="送禮大作戰首頁">
+          <span class="brand-mark" aria-hidden="true">♥</span>
+          <span>送禮大作戰</span>
+        </a>
+        <button class="text-button" id="restartButton" type="button">重新開始</button>
+      </header>
+
+      <section class="intro" id="introScreen" aria-labelledby="introTitle">
+        <p class="eyebrow">RANDOM GIFT PROTOTYPE</p>
+        <h1 id="introTitle">每個重要日子，<br />你會送出哪份禮物？</h1>
+        <p class="intro-copy">
+          走過五年的節日與紀念日。這一版不計分，只測試每回合四個隨機選項的感受。
+        </p>
+        <div class="rule-summary" aria-label="測試規則">
+          <div><strong>14</strong><span>個事件</span></div>
+          <div><strong>4</strong><span>個選項</span></div>
+          <div><strong>1/2</strong><span>婚戒頻率</span></div>
+        </div>
+        <button class="primary-button" id="startButton" type="button">開始測試</button>
+      </section>
+
+      <section class="game hidden" id="gameScreen" aria-live="polite">
+        <div class="progress-heading">
+          <div>
+            <p class="eyebrow" id="yearLabel">第一年</p>
+            <p class="step-label" id="stepLabel">第 1 / 14 個事件</p>
+          </div>
+          <span class="progress-percent" id="progressPercent">0%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <article class="event-card">
+          <div class="event-icon" id="eventIcon" aria-hidden="true">🎄</div>
+          <p class="event-type" id="eventType">節日任務</p>
+          <h2 id="eventTitle">聖誕節</h2>
+          <p class="event-prompt" id="eventPrompt">這次要送她什麼？</p>
+          <div class="special-note hidden" id="specialNote">
+            東京出差任務只會出現專屬伴手禮清單
+          </div>
+        </article>
+
+        <div class="choice-heading">
+          <h3>挑一份禮物</h3>
+          <button class="reroll-button" id="rerollButton" type="button">↻ 重抽這一題</button>
+        </div>
+        <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
+
+        <section class="selection-panel hidden" id="selectionPanel" aria-live="polite">
+          <p>你選擇了</p>
+          <strong id="selectedGift"></strong>
+          <p class="reaction-label">女友的反應</p>
+          <p class="reaction-text" id="girlfriendReaction"></p>
+        </section>
+      </section>
+
+      <section class="ending hidden" id="endingScreen" aria-labelledby="endingTitle">
+        <div class="ending-icon" aria-hidden="true">🎁</div>
+        <p class="eyebrow">PROTOTYPE COMPLETE</p>
+        <h1 id="endingTitle">五年的禮物都選完了！</h1>
+        <p>這一輪共完成 14 個事件。你可以查看選擇紀錄，或重新開始測試另一組隨機結果。</p>
+        <ol class="history-list" id="historyList"></ol>
+        <button class="primary-button" id="playAgainButton" type="button">重新隨機一輪</button>
+      </section>
+    </main>
+  </body>
+</html>
