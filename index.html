@@ -25,6 +25,10 @@
       </section>
 
       <section class="game hidden" id="gameScreen" aria-live="polite">
+        <div class="score-bar" aria-live="polite">
+          <span>目前關係值</span>
+          <strong><span id="relationshipScore">30</span> / 100</strong>
+        </div>
         <article class="event-card">
           <div class="event-icon" id="eventIcon" aria-hidden="true">🎄</div>
           <p class="event-type" id="eventType">節日任務</p>
@@ -36,6 +40,7 @@
           <section class="selection-panel hidden" id="selectionPanel" aria-live="polite">
             <p>你選擇了</p>
             <strong id="selectedGift"></strong>
+            <p class="score-change" id="scoreChange"></p>
             <p class="reaction-label">女友的反應</p>
             <p class="reaction-text" id="girlfriendReaction"></p>
           </section>
@@ -49,10 +54,10 @@
       </section>
 
       <section class="ending hidden" id="endingScreen" aria-labelledby="endingTitle">
-        <div class="ending-icon" aria-hidden="true">🎁</div>
-        <p class="eyebrow">PROTOTYPE COMPLETE</p>
-        <h1 id="endingTitle">五年的禮物都選完了！</h1>
-        <p>這一輪共完成 14 個事件。你可以查看選擇紀錄，或重新開始測試另一組隨機結果。</p>
+        <div class="ending-icon" id="endingIcon" aria-hidden="true">🎁</div>
+        <p class="eyebrow" id="endingEyebrow">遊戲結果</p>
+        <h1 id="endingTitle"></h1>
+        <p id="endingDescription"></p>
         <ol class="history-list" id="historyList"></ol>
         <button class="primary-button" id="playAgainButton" type="button">重新隨機一輪</button>
       </section>
