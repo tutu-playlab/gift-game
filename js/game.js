@@ -1,6 +1,7 @@
 (() => {
   const data = window.GIFT_GAME_DATA;
   const INITIAL_SCORE = 30;
+  const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
   const state = {
     currentIndex: 0,
     generalEventIndex: 0,
@@ -20,24 +21,21 @@
     game: document.querySelector("#gameScreen"),
     ending: document.querySelector("#endingScreen"),
     start: document.querySelector("#startButton"),
-    restart: document.querySelector("#restartButton"),
     playAgain: document.querySelector("#playAgainButton"),
     icon: document.querySelector("#eventIcon"),
-    type: document.querySelector("#eventType"),
+    days: document.querySelector("#relationshipDays"),
+    lead: document.querySelector("#eventLead"),
     title: document.querySelector("#eventTitle"),
     prompt: document.querySelector("#eventPrompt"),
     special: document.querySelector("#specialNote"),
     grid: document.querySelector("#giftGrid"),
-    selection: document.querySelector("#selectionPanel"),
-    selectedGift: document.querySelector("#selectedGift"),
     score: document.querySelector("#relationshipScore"),
-    scoreChange: document.querySelector("#scoreChange"),
+    meter: document.querySelector("#relationshipMeter"),
     reaction: document.querySelector("#girlfriendReaction"),
-    endingIcon: document.querySelector("#endingIcon"),
-    endingEyebrow: document.querySelector("#endingEyebrow"),
+    boyfriendThought: document.querySelector("#boyfriendThought"),
+    endingScore: document.querySelector("#endingScore"),
     endingTitle: document.querySelector("#endingTitle"),
-    endingDescription: document.querySelector("#endingDescription"),
-    history: document.querySelector("#historyList")
+    endingDescription: document.querySelector("#endingDescription")
   };
 
   function clearTransitionTimers() {
@@ -62,6 +60,12 @@
 
   function currentEvent() {
     return data.events[state.currentIndex];
+  }
+
+  function relationshipDay(eventDate) {
+    const startTime = Date.parse(`${data.relationshipStartDate}T00:00:00Z`);
+    const eventTime = Date.parse(`${eventDate}T00:00:00Z`);
+    return Math.floor((eventTime - startTime) / MILLISECONDS_PER_DAY) + 1;
   }
 
   function rememberOptions(options) {
@@ -108,18 +112,28 @@
     });
   }
 
+  function renderScore() {
+    elements.score.textContent = state.score;
+    elements.meter.value = state.score;
+    elements.meter.textContent = `${state.score} / 100`;
+    elements.meter.setAttribute("aria-valuetext", `${state.score} / 100`);
+  }
+
   function renderEvent() {
     clearTransitionTimers();
     state.isTransitioning = false;
     state.pendingEnding = null;
     const event = currentEvent();
     elements.icon.textContent = event.icon;
-    elements.type.textContent = event.isTokyo ? "額外任務" : "節日任務";
+    elements.days.textContent = relationshipDay(event.date);
+    elements.lead.textContent = event.isTokyo ? "這次是" : "下禮拜是";
     elements.title.textContent = event.title;
-    elements.prompt.textContent = event.isTokyo ? "出差回來，要帶什麼給她？" : "這次要送她什麼？";
+    elements.prompt.textContent = event.isTokyo ? "出差回來，要帶什麼給她？" : "你準備送什麼禮物呢？";
     elements.special.classList.toggle("hidden", !event.isTokyo);
-    elements.selection.classList.add("hidden");
-    elements.score.textContent = state.score;
+    elements.reaction.classList.add("hidden");
+    elements.reaction.textContent = "";
+    elements.boyfriendThought.textContent = data.boyfriendThinkingText;
+    renderScore();
     state.options = createOptions(event);
     renderOptions();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -127,17 +141,13 @@
 
   function scoreResult(gift) {
     if (gift.isRing) {
-      if (state.score > 90) return { change: 0, ending: "proposal", reaction: "她紅著眼眶點點頭：『我願意！』" };
-      if (state.score < 60) return { change: 0, ending: "breakup", reaction: "她愣住了：『我們的關係還沒走到這裡吧……』" };
-      return { change: -10, reaction: "她收起戒指：『現在還不是時候。』" };
+      if (state.score > 90) return { change: 0, ending: "proposal", reactionType: "positive" };
+      if (state.score < 60) return { change: 0, ending: "breakup", reactionType: "negative" };
+      return { change: -10, reactionType: "negative" };
     }
 
-    const reaction = gift.score > 0
-      ? "她開心地收下禮物，看得出來你有把她放在心上。"
-      : gift.score < 0
-        ? "她沉默了一下，看起來對這份禮物不太滿意。"
-        : "她收下禮物，表情看起來有些微妙。";
-    return { change: gift.score, reaction };
+    const reactionType = gift.score > 0 ? "positive" : gift.score < 0 ? "negative" : "neutral";
+    return { change: gift.score, reactionType };
   }
 
   function formatChange(change, gift) {
@@ -157,14 +167,12 @@
     });
 
     const result = scoreResult(gift);
+    const reaction = data.reactions[result.reactionType];
     state.pendingEnding = result.ending || null;
     state.score = Math.max(0, Math.min(100, state.score + result.change));
     if (!state.pendingEnding && state.score === 0) state.pendingEnding = "breakup";
 
-    elements.selectedGift.textContent = gift.label;
-    elements.scoreChange.textContent = formatChange(result.change, gift);
-    elements.reaction.textContent = result.reaction;
-    elements.score.textContent = state.score;
+    renderScore();
 
     const event = currentEvent();
     state.history.push({
@@ -176,14 +184,19 @@
     if (!event.isTokyo) state.generalEventIndex += 1;
 
     state.reactionTimer = window.setTimeout(() => {
-      elements.selection.classList.remove("hidden");
-      elements.selection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      elements.reaction.textContent = reaction.girlfriend;
+      elements.reaction.classList.remove("hidden");
+      elements.boyfriendThought.textContent = reaction.boyfriend;
+      elements.reaction.scrollIntoView({ behavior: "smooth", block: "center" });
       state.nextEventTimer = window.setTimeout(advanceAfterReaction, 5000);
     }, 1000);
   }
 
   function startGame() {
     clearTransitionTimers();
+    document.body.classList.remove("intro-active");
+    document.body.classList.remove("ending-active");
+    document.body.classList.add("game-active");
     state.currentIndex = 0;
     state.generalEventIndex = 0;
     state.nextRingAt = randomRingInterval();
@@ -199,50 +212,33 @@
 
   function advanceAfterReaction() {
     if (state.pendingEnding) {
-      showEnding(state.pendingEnding);
+      showEnding();
       return;
     }
     if (state.currentIndex === data.events.length - 1) {
-      showEnding(state.score < 40 ? "low-score" : state.score < 80 ? "success" : "perfect");
+      showEnding();
       return;
     }
     state.currentIndex += 1;
     renderEvent();
   }
 
-  function endingContent(endingId) {
-    const endings = {
-      breakup: { icon: "💔", eyebrow: "GAME OVER", title: "她決定和你分手了", description: `關係值停在 ${state.score} 分。重新挑選禮物，試著挽回這段感情吧。` },
-      "low-score": { icon: "🥀", eyebrow: "BAD ENDING", title: "五年後，你們還是分開了", description: `最後關係值是 ${state.score} 分。雖然走完所有事件，感情仍不足以繼續。` },
-      success: { icon: "💞", eyebrow: "GOOD ENDING", title: "你們繼續交往下去了！", description: `最後關係值是 ${state.score} 分。你成功通過五年的送禮考驗。` },
-      perfect: { icon: "🎁", eyebrow: "PERFECT ENDING", title: "你真的很懂她！", description: `最後關係值是 ${state.score} 分。你們的感情比以前更加甜蜜。` },
-      proposal: { icon: "💍", eyebrow: "SPECIAL ENDING", title: "求婚成功！", description: `你在 ${state.score} 分時鼓起勇氣求婚，她答應了！` }
-    };
-    return endings[endingId];
+  function endingContent(score) {
+    return data.endingResults.find((ending) => score >= ending.minScore && score <= ending.maxScore);
   }
 
-  function showEnding(endingId) {
-    const content = endingContent(endingId);
+  function showEnding() {
+    const content = endingContent(state.score);
+    document.body.classList.remove("game-active");
+    document.body.classList.add("ending-active");
     elements.game.classList.add("hidden");
     elements.ending.classList.remove("hidden");
-    elements.endingIcon.textContent = content.icon;
-    elements.endingEyebrow.textContent = content.eyebrow;
-    elements.endingTitle.textContent = content.title;
+    elements.endingScore.textContent = state.score;
+    elements.endingTitle.textContent = content.type;
     elements.endingDescription.textContent = content.description;
-    elements.history.replaceChildren();
-    state.history.forEach((item) => {
-      const row = document.createElement("li");
-      const eventLabel = document.createElement("span");
-      const giftLabel = document.createElement("strong");
-      eventLabel.textContent = `${item.year}・${item.event}`;
-      giftLabel.textContent = `${item.gift}（${item.result.replace("關係值 ", "")}）`;
-      row.append(eventLabel, giftLabel);
-      elements.history.append(row);
-    });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   elements.start.addEventListener("click", startGame);
   elements.playAgain.addEventListener("click", startGame);
-  elements.restart.addEventListener("click", startGame);
 })();
