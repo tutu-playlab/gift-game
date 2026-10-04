@@ -1,19 +1,21 @@
 window.GIFT_GAME_DATA = {
+  relationshipStartDate: "2025-11-01",
+
   events: [
-    { year: "第一年", title: "聖誕節", icon: "🎄" },
-    { year: "第一年", title: "情人節", icon: "💝" },
-    { year: "第二年", title: "女友生日", icon: "🎂" },
-    { year: "第二年", title: "東京出差土產", icon: "🗼", isTokyo: true },
-    { year: "第二年", title: "交往滿一週年紀念日", icon: "🥂" },
-    { year: "第三年", title: "情人節", icon: "💝" },
-    { year: "第三年", title: "女友生日", icon: "🎂" },
-    { year: "第三年", title: "交往滿二週年紀念日", icon: "🥂" },
-    { year: "第四年", title: "女友生日", icon: "🎂" },
-    { year: "第四年", title: "交往滿三週年紀念日", icon: "🥂" },
-    { year: "第四年", title: "聖誕節", icon: "🎄" },
-    { year: "第五年", title: "情人節", icon: "💝" },
-    { year: "第五年", title: "女友生日", icon: "🎂" },
-    { year: "第五年", title: "交往滿四週年紀念日", icon: "🥂" }
+    { year: "第一年", date: "2025-12-25", title: "聖誕節", icon: "🎄" },
+    { year: "第一年", date: "2026-02-14", title: "情人節", icon: "💝" },
+    { year: "第二年", date: "2026-06-18", title: "女友生日", icon: "🎂" },
+    { year: "第二年", date: "2026-08-20", title: "東京出差土產", icon: "🗼", isTokyo: true },
+    { year: "第二年", date: "2026-11-01", title: "交往滿一週年紀念日", icon: "🥂" },
+    { year: "第三年", date: "2027-02-14", title: "情人節", icon: "💝" },
+    { year: "第三年", date: "2027-06-18", title: "女友生日", icon: "🎂" },
+    { year: "第三年", date: "2027-11-01", title: "交往滿二週年紀念日", icon: "🥂" },
+    { year: "第四年", date: "2028-06-18", title: "女友生日", icon: "🎂" },
+    { year: "第四年", date: "2028-11-01", title: "交往滿三週年紀念日", icon: "🥂" },
+    { year: "第四年", date: "2028-12-25", title: "聖誕節", icon: "🎄" },
+    { year: "第五年", date: "2029-02-14", title: "情人節", icon: "💝" },
+    { year: "第五年", date: "2029-06-18", title: "女友生日", icon: "🎂" },
+    { year: "第五年", date: "2029-11-01", title: "交往滿四週年紀念日", icon: "🥂" }
   ],
 
   generalGifts: [
@@ -63,12 +65,65 @@ window.GIFT_GAME_DATA = {
     { id: "character-gachapon", label: "女友喜歡的角色扭蛋", score: 5 }
   ],
 
-  // Prototype 暫用反應，之後可替換成各禮物專屬台詞。
-  reactions: [
-    "她看了看禮物，笑著說：「你居然有想到這個！」",
-    "她接過禮物，忍不住問：「你怎麼會選這個呀？」",
-    "她愣了一下，接著露出一個意味深長的笑容。",
-    "她把禮物拿在手上看了好久，似乎正在想該說什麼。",
-    "她笑著收下禮物：「好吧，這次先算你有用心。」"
-  ]
+  endingResults: [
+    {
+      minScore: 80,
+      maxScore: 100,
+      relationshipStatus: "非常甜蜜",
+      type: "別人家的男友",
+      description: "女友隨口說過的話你比誰記得還清楚，\n說是 90 分沒人敢說自己是 100 分。\n恭喜你成為眾女心中「別人家的男友」，\n勸你低調一點，不要出來破壞市場行情！"
+    },
+    {
+      minScore: 60,
+      maxScore: 79,
+      relationshipStatus: "感情穩定",
+      type: "戀愛求生高手",
+      description: "大部分時候都能精準命中女友的喜好，\n雖然偶爾也會踩個小雷，\n但靠著一片真心也總是能安全下莊！\n戀愛不一定要滿分，活到最後才是高手。"
+    },
+    {
+      minScore: 40,
+      maxScore: 59,
+      relationshipStatus: "開始有摩擦",
+      type: "小心翼翼型男友",
+      description: "「這個……應該不會錯吧？」\n送女友禮物總是搞得像在打仗一樣，\n小心翼翼深怕一不小心就被砍頭。\n下次放鬆心情挑選禮物，\n說不定會有不一樣的收穫喔！"
+    },
+    {
+      minScore: 20,
+      maxScore: 39,
+      relationshipStatus: "關係危險",
+      type: "奇蹟生還型男友",
+      description: "「咦怎麼突然生氣了？」\n送禮基本靠心情，\n從來沒發現自己撿回好幾條小命的樂天派，\n卻總能莫名其妙活到最後（？"
+    },
+    {
+      minScore: 1,
+      maxScore: 19,
+      relationshipStatus: "分手邊緣",
+      type: "快要放棄型男友",
+      description: "「蛤？我又做錯什麼了？」\n每次看她臉色不對，\n才開始瘋狂回想自己到底做了什麼。\n能撐到現在，可能已經是奇蹟了……\n友情提醒：現在道歉可能還來得及喔！"
+    },
+    {
+      minScore: 0,
+      maxScore: 0,
+      relationshipStatus: "關係破裂",
+      type: "恭喜成為前男友",
+      description: "她收下了禮物，\n也收回了對你的愛。\n好消息：你不用準備下一份禮物了。"
+    }
+  ],
+
+  boyfriendThinkingText: "送什麼好呢⋯",
+
+  reactions: {
+    positive: {
+      girlfriend: "哇！你好有心喔！",
+      boyfriend: "太好了，她喜歡！"
+    },
+    neutral: {
+      girlfriend: "嗯～謝謝你！",
+      boyfriend: "平安度過⋯"
+    },
+    negative: {
+      girlfriend: "啊...怎麼是這個？",
+      boyfriend: "完蛋了⋯"
+    }
+  }
 };

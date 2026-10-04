@@ -9,57 +9,87 @@
     <script src="js/data.js" defer></script>
     <script src="js/game.js" defer></script>
   </head>
-  <body>
+  <body class="intro-active">
     <main class="app-shell">
-      <header class="topbar">
-        <a class="brand" href="./" aria-label="送禮大作戰首頁">
-          <span class="brand-mark" aria-hidden="true">♥</span>
-          <span>送禮大作戰</span>
-        </a>
-        <button class="text-button" id="restartButton" type="button">重新開始</button>
-      </header>
-
       <section class="intro" id="introScreen" aria-labelledby="introTitle">
-        <h1 id="introTitle">每個重要日子，<br />你會送出哪份禮物？</h1>
-        <button class="primary-button" id="startButton" type="button">開始測試</button>
+        <div class="intro-window">
+          <div class="window-titlebar">
+            <span>Test of Love</span>
+            <span class="window-hearts" aria-hidden="true">♥ ♥ ♥</span>
+          </div>
+          <div class="intro-window-content">
+            <h1 id="introTitle">你夠了解<br />女友想要什麼嗎？</h1>
+            <div class="intro-visual" role="img" aria-label="主視覺預留區"></div>
+            <button class="primary-button" id="startButton" type="button">開始測試</button>
+          </div>
+        </div>
       </section>
 
       <section class="game hidden" id="gameScreen" aria-live="polite">
-        <div class="score-bar" aria-live="polite">
-          <span>目前關係值</span>
-          <strong><span id="relationshipScore">30</span> / 100</strong>
-        </div>
-        <article class="event-card">
-          <div class="event-icon" id="eventIcon" aria-hidden="true">🎄</div>
-          <p class="event-type" id="eventType">節日任務</p>
-          <h2 id="eventTitle">聖誕節</h2>
-          <p class="event-prompt" id="eventPrompt">這次要送她什麼？</p>
-          <div class="special-note hidden" id="specialNote">
-            東京出差任務只會出現專屬伴手禮清單
+        <div class="question-window">
+          <div class="window-titlebar">
+            <span>Test of Love</span>
+            <span class="window-hearts" aria-hidden="true">♥ ♥ ♥</span>
           </div>
-          <section class="selection-panel hidden" id="selectionPanel" aria-live="polite">
-            <p>你選擇了</p>
-            <strong id="selectedGift"></strong>
-            <p class="score-change" id="scoreChange"></p>
-            <p class="reaction-label">女友的反應</p>
-            <p class="reaction-text" id="girlfriendReaction"></p>
-          </section>
-        </article>
+          <div class="question-window-content">
+            <div class="relationship-panel">
+              <label class="relationship-label" for="relationshipMeter">
+                <span aria-hidden="true">♥</span>
+                <span>好感度</span>
+              </label>
+              <progress id="relationshipMeter" max="100" value="30">30 / 100</progress>
+              <span class="visually-hidden">
+                目前關係值 <span id="relationshipScore">30</span> / 100
+              </span>
+            </div>
 
-        <div class="choice-heading">
-          <h3>挑一份禮物</h3>
+            <div class="event-visual-stage">
+              <div class="event-icon" id="eventIcon" aria-label="角色主視覺預留區" role="img">🎄</div>
+              <p class="girlfriend-reaction-bubble hidden" id="girlfriendReaction" aria-live="polite"></p>
+            </div>
+
+            <p class="relationship-days">共度的第 <strong id="relationshipDays">55</strong> 天</p>
+
+            <article class="event-card">
+              <h2 class="event-question">
+                <span id="eventLead">下禮拜是</span>
+                <strong id="eventTitle">聖誕節</strong>，<br />
+                <span id="eventPrompt">你準備送什麼禮物呢？</span>
+              </h2>
+              <div class="special-note hidden" id="specialNote">
+                東京出差任務只會出現專屬伴手禮清單
+              </div>
+            </article>
+
+            <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
+
+            <aside class="boyfriend-thought" aria-label="男友碎碎念">
+              <div class="boyfriend-visual" role="img" aria-label="男友角色預留區"></div>
+              <p id="boyfriendThought">送什麼好呢⋯</p>
+            </aside>
+          </div>
         </div>
-        <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
-
       </section>
 
       <section class="ending hidden" id="endingScreen" aria-labelledby="endingTitle">
-        <div class="ending-icon" id="endingIcon" aria-hidden="true">🎁</div>
-        <p class="eyebrow" id="endingEyebrow">遊戲結果</p>
-        <h1 id="endingTitle"></h1>
-        <p id="endingDescription"></p>
-        <ol class="history-list" id="historyList"></ol>
-        <button class="primary-button" id="playAgainButton" type="button">重新隨機一輪</button>
+        <div class="result-window">
+          <div class="window-titlebar">
+            <span>Test of Love</span>
+            <span class="window-hearts" aria-hidden="true">♥ ♥ ♥</span>
+          </div>
+          <div class="result-window-content">
+            <p class="result-label">你的戀愛求生指數</p>
+            <strong class="result-score" id="endingScore">0</strong>
+            <h1 id="endingTitle"></h1>
+            <div class="ending-visual" role="img" aria-label="結局主視覺預留區"></div>
+            <p class="ending-description" id="endingDescription"></p>
+            <div class="result-actions">
+              <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
+              <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
+              <button class="result-download-button" id="downloadResultButton" type="button">下載圖片</button>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   </body>
