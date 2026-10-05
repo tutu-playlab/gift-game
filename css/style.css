@@ -85,7 +85,19 @@ a:focus-visible {
 }
 
 .love-window-panel {
-  filter: drop-shadow(6px 5px 0 #fcdfb1);
+  position: relative;
+  isolation: isolate;
+}
+
+.love-window-panel::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #fcdfb1;
+  border-radius: 12px;
+  content: "";
+  pointer-events: none;
+  transform: translate(6px, 5px);
 }
 
 .love-window-titlebar {
@@ -468,11 +480,6 @@ h1 {
   transition: transform .18s ease, background-color .18s ease;
 }
 
-.gift-option:hover {
-  background: white;
-  transform: translateY(-1px);
-}
-
 .gift-option.selected {
   color: #00000e;
   font-weight: 400;
@@ -489,18 +496,25 @@ h1 {
   box-shadow: none;
 }
 
-.gift-option:disabled:not(.selected):hover {
-  background: #fcfbf5;
-  border-color: #9f9f9f;
-  box-shadow: none;
-  transform: none;
-}
+@media (hover: hover) and (pointer: fine) {
+  .gift-option:hover {
+    background: white;
+    transform: translateY(-1px);
+  }
 
-.gift-option.selected:disabled:hover {
-  background: #fcfbf5;
-  border-color: #000;
-  box-shadow: 1px 1px 0 #79d3fd, 3px 5px 0 var(--pink-shadow);
-  transform: none;
+  .gift-option:disabled:not(.selected):hover {
+    background: #fcfbf5;
+    border-color: #9f9f9f;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .gift-option.selected:disabled:hover {
+    background: #fcfbf5;
+    border-color: #000;
+    box-shadow: 1px 1px 0 #79d3fd, 3px 5px 0 var(--pink-shadow);
+    transform: none;
+  }
 }
 
 @keyframes girlfriend-reaction-opacity {
@@ -663,7 +677,15 @@ h1 {
 
 @media (max-width: 560px) {
   .app-shell { width: min(100% - 24px, 760px); }
+  .love-window { width: 100%; }
   .gift-option { min-height: 56px; }
+}
+
+@media (max-width: 560px) and (min-height: 850px) {
+  .game {
+    justify-content: center;
+    padding-bottom: calc(max(32px, env(safe-area-inset-bottom)) + 42.757px);
+  }
 }
 
 @media (max-width: 360px) {
