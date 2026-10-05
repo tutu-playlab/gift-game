@@ -118,8 +118,8 @@ window.GIFT_GAME_DATA = {
       boyfriend: "太好了，她喜歡！"
     },
     neutral: {
-      girlfriend: "嗯～謝謝你！",
-      boyfriend: "平安度過⋯"
+      girlfriend: "恩～謝謝你",
+      boyfriend: "平安度過..."
     },
     negative: {
       girlfriend: "啊...怎麼是這個？",
