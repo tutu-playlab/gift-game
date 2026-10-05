@@ -100,13 +100,13 @@
 
   function renderOptions() {
     elements.grid.replaceChildren();
-    state.options.forEach((gift, index) => {
+    state.options.forEach((gift) => {
       const button = document.createElement("button");
       button.className = "gift-option";
       button.type = "button";
       button.dataset.giftId = gift.id;
       button.setAttribute("aria-pressed", "false");
-      button.innerHTML = `<span class="gift-number">OPTION ${index + 1}</span>${gift.label}`;
+      button.textContent = gift.label;
       button.addEventListener("click", () => selectGift(button, gift));
       elements.grid.append(button);
     });
@@ -124,7 +124,7 @@
     state.isTransitioning = false;
     state.pendingEnding = null;
     const event = currentEvent();
-    elements.icon.textContent = event.icon;
+    elements.icon.setAttribute("aria-label", `${event.title}的女友角色`);
     elements.days.textContent = relationshipDay(event.date);
     elements.lead.textContent = event.isTokyo ? "這次是" : "下禮拜是";
     elements.title.textContent = event.title;

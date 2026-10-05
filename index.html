@@ -27,47 +27,72 @@
 
       <section class="game hidden" id="gameScreen" aria-live="polite">
         <div class="question-window">
-          <div class="window-titlebar">
-            <span>Test of Love</span>
-            <span class="window-hearts" aria-hidden="true">♥ ♥ ♥</span>
-          </div>
-          <div class="question-window-content">
-            <div class="relationship-panel">
-              <label class="relationship-label" for="relationshipMeter">
-                <span aria-hidden="true">♥</span>
-                <span>好感度</span>
-              </label>
-              <progress id="relationshipMeter" max="100" value="30">30 / 100</progress>
-              <span class="visually-hidden">
-                目前關係值 <span id="relationshipScore">30</span> / 100
+          <div class="question-panel">
+            <div class="question-titlebar">
+              <span>Test of Love</span>
+              <span class="question-hearts" aria-hidden="true">
+                <img src="assets/question/heart.png" alt="" />
+                <img src="assets/question/heart.png" alt="" />
+                <img src="assets/question/heart.png" alt="" />
               </span>
             </div>
 
-            <div class="event-visual-stage">
-              <div class="event-icon" id="eventIcon" aria-label="角色主視覺預留區" role="img">🎄</div>
-              <p class="girlfriend-reaction-bubble hidden" id="girlfriendReaction" aria-live="polite"></p>
-            </div>
-
-            <p class="relationship-days">共度的第 <strong id="relationshipDays">55</strong> 天</p>
-
-            <article class="event-card">
-              <h2 class="event-question">
-                <span id="eventLead">下禮拜是</span>
-                <strong id="eventTitle">聖誕節</strong>，<br />
-                <span id="eventPrompt">你準備送什麼禮物呢？</span>
-              </h2>
-              <div class="special-note hidden" id="specialNote">
-                東京出差任務只會出現專屬伴手禮清單
+            <div class="question-window-content">
+              <div class="relationship-panel">
+                <label class="relationship-label" for="relationshipMeter">
+                  <img src="assets/question/heart.png" alt="" />
+                  <span>好感度</span>
+                </label>
+                <progress id="relationshipMeter" max="100" value="30">30 / 100</progress>
+                <span class="visually-hidden">
+                  目前關係值 <span id="relationshipScore">30</span> / 100
+                </span>
               </div>
-            </article>
 
-            <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
+              <div class="question-main">
+                <div class="event-visual-stage">
+                  <div class="girlfriend-character" id="eventIcon" aria-label="女友角色" role="img">
+                    <div class="girlfriend-texture" aria-hidden="true">
+                      <img src="assets/question/girlfriend-blob.png" alt="" />
+                    </div>
+                    <img class="girlfriend-eye girlfriend-eye-left" src="assets/question/girlfriend-eye-left.svg" alt="" />
+                    <img class="girlfriend-eye girlfriend-eye-right" src="assets/question/girlfriend-eye-right.svg" alt="" />
+                    <img class="girlfriend-mouth" src="assets/question/girlfriend-mouth.svg" alt="" />
+                  </div>
+                  <p class="girlfriend-reaction-bubble hidden" id="girlfriendReaction" aria-live="polite"></p>
+                </div>
 
-            <aside class="boyfriend-thought" aria-label="男友碎碎念">
-              <div class="boyfriend-visual" role="img" aria-label="男友角色預留區"></div>
-              <p id="boyfriendThought">送什麼好呢⋯</p>
-            </aside>
+                <p class="relationship-days">
+                  <img class="day-sticker" src="assets/question/day-sticker.png" alt="" aria-hidden="true" />
+                  <span>共度的第</span>
+                  <strong id="relationshipDays">55</strong>
+                  <span>天</span>
+                </p>
+
+                <article class="event-card">
+                  <h2 class="event-question">
+                    <span id="eventLead">下禮拜是</span><strong id="eventTitle">聖誕節</strong>，<br />
+                    <span id="eventPrompt">你準備送什麼禮物呢？</span>
+                  </h2>
+                  <div class="special-note hidden" id="specialNote">
+                    東京出差任務只會出現專屬伴手禮清單
+                  </div>
+                </article>
+
+                <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
+              </div>
+            </div>
           </div>
+
+          <aside class="boyfriend-thought" aria-label="男友碎碎念">
+            <div class="boyfriend-visual" role="img" aria-label="男友角色">
+              <img class="boyfriend-texture" src="assets/question/boyfriend-blob.png" alt="" />
+              <img class="boyfriend-eye boyfriend-eye-left" src="assets/question/boyfriend-eye.svg" alt="" />
+              <img class="boyfriend-eye boyfriend-eye-right" src="assets/question/boyfriend-eye.svg" alt="" />
+              <img class="boyfriend-mouth" src="assets/question/boyfriend-mouth.svg" alt="" />
+            </div>
+            <p id="boyfriendThought">送什麼好呢...</p>
+          </aside>
         </div>
       </section>
 

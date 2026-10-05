@@ -10,6 +10,9 @@
   --peach: #ffcfb5;
   --line: #eadfdd;
   --shadow: 0 18px 60px rgb(86 45 58 / 12%);
+  --pink-title: #fd41ae;
+  --pink-shadow: #fdc2de;
+  --question-background: #fdadd8;
 }
 
 * { box-sizing: border-box; }
@@ -27,8 +30,9 @@ body {
 }
 
 body.intro-active,
-body.game-active,
 body.ending-active { background: #f5a3d2; }
+
+body.game-active { background: var(--question-background); }
 
 body.intro-active .app-shell,
 body.game-active .app-shell,
@@ -172,121 +176,317 @@ h1 {
 .intro .primary-button:hover { background: #252525; }
 
 .game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100svh;
-  padding: 16px;
+  padding: max(32px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+  font-family: "Noto Sans HK", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .question-window {
-  width: min(100%, 398px);
-  margin: 0 auto;
-  overflow: hidden;
-  background: #fff;
-  border: 2px solid #171717;
-  border-radius: 20px;
-  box-shadow: 9px 10px 0 #ffd49a;
+  position: relative;
+  width: min(100%, 342px);
+  margin: auto;
+  color: #00000e;
 }
 
-.question-window-content { padding: 24px 18px 28px; }
+.question-panel {
+  filter: drop-shadow(6px 5px 0 #fcdfb1);
+}
 
-.relationship-panel { margin-bottom: 24px; }
+.question-titlebar {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  width: 100%;
+  height: 38px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 16px 16px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+  background: linear-gradient(
+    90deg,
+    #acb1fd 0%,
+    #a696fc 30.258%,
+    #9c97fc 47.596%,
+    #97a9fc 74.185%,
+    #ac9bfc 100%
+  );
+  border: 1px solid #000;
+  border-radius: 12px 12px 0 0;
+  box-shadow: inset 1px 1px 0 #000, inset 3px 1px 0 #fffffd;
+}
+
+.question-hearts {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.question-hearts img {
+  display: block;
+  width: 16px;
+  height: 14px;
+  object-fit: cover;
+}
+
+.question-window-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 692px;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: -10px;
+  padding: 23px 15px 59px;
+  background: white;
+  border: 1px solid #000;
+  border-radius: 12px;
+  box-shadow: inset 3px 7px 0 #fcd3e6;
+}
+
+.relationship-panel {
+  width: 100%;
+}
 
 .relationship-label {
   display: flex;
-  gap: 8px;
+  gap: 4px;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.relationship-label img {
+  display: block;
+  width: 20.182px;
+  height: 18px;
+  object-fit: cover;
+}
+
+.relationship-panel progress {
+  display: block;
+  width: 100%;
+  height: 20px;
+  overflow: hidden;
+  appearance: none;
+  background: #dadce2;
+  border: 1px solid #bebbc8;
+  border-radius: 25px;
+}
+
+.relationship-panel progress::-webkit-progress-bar {
+  background: #dadce2;
+  border-radius: 25px;
+}
+
+.relationship-panel progress::-webkit-progress-value {
+  background: #fd6db9;
+  border: 1px solid #000;
+  border-radius: 19px;
+  box-shadow: inset 0 3px 0 rgb(255 255 255 / 40%), inset 5px 7px 4.6px rgb(255 255 255 / 30%);
+}
+
+.relationship-panel progress::-moz-progress-bar {
+  background: #fd6db9;
+  border: 1px solid #000;
+  border-radius: 19px;
+  box-shadow: inset 0 3px 0 rgb(255 255 255 / 40%), inset 5px 7px 4.6px rgb(255 255 255 / 30%);
+}
+
+.question-main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 16px;
   align-items: center;
-  margin-bottom: 8px;
-  font-weight: 750;
-}
-
-.relationship-panel progress { width: 100%; }
-
-.relationship-days {
-  margin: 20px 0;
-  text-align: center;
-}
-
-.event-question strong { color: var(--rose); }
-
-.event-card {
-  padding: clamp(24px, 6vw, 48px);
-  text-align: center;
-  background: rgb(255 255 255 / 86%);
-  border: 1px solid rgb(234 223 221 / 80%);
-  border-radius: 28px;
-  box-shadow: var(--shadow);
 }
 
 .event-visual-stage {
   position: relative;
-  width: min(82%, 280px);
-  margin: 0 auto;
+  width: 225px;
+  height: 141px;
+  flex: 0 0 141px;
 }
 
-.event-icon {
-  display: grid;
+.girlfriend-character,
+.girlfriend-texture {
+  position: relative;
+  width: 225px;
+  height: 141px;
+}
+
+.girlfriend-texture {
+  overflow: hidden;
+}
+
+.girlfriend-texture img {
+  position: absolute;
+  top: -14.89%;
+  left: -12.44%;
+  width: 240.05%;
+  height: 255.37%;
+  max-width: none;
+}
+
+.girlfriend-eye,
+.girlfriend-mouth {
+  position: absolute;
+  display: block;
+}
+
+.girlfriend-eye-left {
+  top: 52.901px;
+  left: 91.931px;
+}
+
+.girlfriend-eye-right {
+  top: 52.057px;
+  left: 140.453px;
+}
+
+.girlfriend-mouth {
+  top: 76.673px;
+  left: 119.261px;
+}
+
+.relationship-days {
+  position: relative;
+  display: flex;
+  width: max-content;
+  min-width: 140px;
+  height: 29px;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 6px 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+  white-space: nowrap;
+  background: #000;
+  border-radius: 19px;
+  box-shadow: 4px 4px 0 var(--pink-shadow);
+}
+
+.relationship-days > span {
+  flex: 0 0 auto;
+}
+
+.relationship-days strong {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 38px;
+  height: 33px;
+  color: var(--pink-title);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.197;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.day-sticker {
+  position: absolute;
+  top: -10px;
+  left: -16px;
+  width: 39px;
+  height: 31px;
+  object-fit: cover;
+}
+
+.event-card {
   width: 100%;
-  aspect-ratio: 1.6 / 1;
-  place-items: center;
-  font-size: 52px;
-  background: #d9d9d9;
+  padding: 0;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .girlfriend-reaction-bubble {
   position: absolute;
-  right: -16px;
-  bottom: 18px;
-  max-width: 170px;
+  right: -26px;
+  bottom: 6px;
+  z-index: 2;
+  max-width: 148px;
   margin: 0;
-  padding: 10px 14px;
+  padding: 6px 10px;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: normal;
   background: white;
-  border: 1.5px solid #171717;
-  border-radius: 999px;
+  border: 1px solid #000;
+  border-radius: 12px;
+  box-shadow: 3px 4px 0 var(--pink-shadow);
 }
-.event-card h2 { margin: 0; font-size: clamp(30px, 6vw, 46px); letter-spacing: -.03em; }
+
+.event-card h2 {
+  margin: 0;
+  color: #00000e;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+.event-question strong { color: var(--pink-title); }
 
 .special-note {
-  max-width: 420px;
-  margin: 20px auto 0;
-  padding: 10px 14px;
+  max-width: 100%;
+  margin: 8px auto 0;
+  padding: 6px 10px;
   color: #775630;
-  font-size: 13px;
+  font-size: 12px;
   background: #fff3cf;
-  border-radius: 10px;
+  border: 1px solid #775630;
+  border-radius: 8px;
 }
 
 .gift-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
 .gift-option {
   position: relative;
-  min-height: 112px;
-  padding: 20px;
-  color: var(--ink);
+  width: 100%;
+  min-height: 60px;
+  padding: 12px 24px;
+  color: #00000e;
+  font-size: 14px;
+  font-weight: 400;
   text-align: left;
-  line-height: 1.5;
-  background: var(--card);
-  border: 1.5px solid var(--line);
-  border-radius: 18px;
+  line-height: 17px;
+  overflow-wrap: anywhere;
+  background: #fcfbf5;
+  border: 1px solid #000;
+  border-radius: 12px;
+  box-shadow: 1px 1px 0 #79d3fd, 3px 7px 0 var(--pink-shadow);
   cursor: pointer;
-  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  transition: transform .18s ease, background-color .18s ease;
 }
 
 .gift-option:hover {
-  border-color: var(--rose);
-  box-shadow: 0 10px 30px rgb(86 45 58 / 10%);
-  transform: translateY(-2px);
+  background: white;
+  transform: translateY(-1px);
 }
 
 .gift-option.selected {
-  color: var(--rose-dark);
-  font-weight: 750;
-  background: var(--rose-soft);
-  border-color: var(--rose);
+  color: #00000e;
+  font-weight: 700;
+  background: #ffeaf5;
+  border-color: #000;
 }
 
 .gift-option:disabled { cursor: default; }
@@ -294,43 +494,73 @@ h1 {
 .gift-option:disabled:not(.selected) { opacity: .38; }
 
 .gift-option:disabled:hover {
-  border-color: var(--line);
-  box-shadow: none;
+  border-color: #000;
+  box-shadow: 1px 1px 0 #79d3fd, 3px 7px 0 var(--pink-shadow);
   transform: none;
 }
 
-.gift-option.selected:disabled:hover { border-color: var(--rose); }
-
-.gift-number {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-}
+.gift-option.selected:disabled:hover { border-color: #000; }
 
 .boyfriend-thought {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 28px;
+  position: absolute;
+  right: 16px;
+  bottom: -42.757px;
+  z-index: 3;
+  width: 180px;
+  height: 96.757px;
+  margin: 0;
 }
 
 .boyfriend-visual {
-  flex: 0 0 76px;
-  width: 76px;
-  height: 76px;
-  background: #d9d9d9;
-  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 119px;
+  height: 96.757px;
+}
+
+.boyfriend-texture {
+  display: block;
+  width: 119px;
+  height: 96.757px;
+  object-fit: cover;
+}
+
+.boyfriend-eye,
+.boyfriend-mouth {
+  position: absolute;
+  display: block;
+}
+
+.boyfriend-eye-left {
+  top: 27.019px;
+  left: 27.018px;
+}
+
+.boyfriend-eye-right {
+  top: 27.019px;
+  left: 53.552px;
+}
+
+.boyfriend-mouth {
+  top: 44.222px;
+  left: 34.985px;
 }
 
 .boyfriend-thought p {
-  margin: 0 0 8px;
-  padding: 10px 14px;
+  position: absolute;
+  top: 16px;
+  left: 80px;
+  margin: 0;
+  padding: 4px 8px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
   background: white;
-  border: 1.5px solid #171717;
-  border-radius: 999px;
+  border: 1px solid #000;
+  border-radius: 12px;
 }
 
 .ending {
@@ -420,9 +650,13 @@ h1 {
 
 @media (max-width: 560px) {
   .app-shell { width: min(100% - 24px, 760px); }
-  .gift-grid { grid-template-columns: 1fr; }
-  .gift-option { min-height: 84px; }
-  .event-card { border-radius: 22px; }
+  .gift-option { min-height: 60px; }
+}
+
+@media (max-width: 360px) {
+  .game { padding-right: 16px; padding-left: 16px; }
+  .question-window-content { padding-right: 13px; padding-left: 13px; }
+  .boyfriend-thought { right: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
