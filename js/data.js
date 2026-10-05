@@ -110,7 +110,7 @@ window.GIFT_GAME_DATA = {
     }
   ],
 
-  boyfriendThinkingText: "送什麼好呢⋯",
+  boyfriendThinkingText: "送什麼好呢...",
 
   reactions: {
     positive: {
