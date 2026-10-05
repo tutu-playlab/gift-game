@@ -1,6 +1,7 @@
 (() => {
   const data = window.GIFT_GAME_DATA;
   const INITIAL_SCORE = 30;
+  const DAY_COUNT_DURATION = 800;
   const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
   const state = {
     currentIndex: 0,
@@ -13,7 +14,8 @@
     isTransitioning: false,
     pendingEnding: null,
     reactionTimer: null,
-    nextEventTimer: null
+    nextEventTimer: null,
+    dayCountAnimationFrame: null
   };
 
   const elements = {
@@ -27,11 +29,14 @@
     lead: document.querySelector("#eventLead"),
     title: document.querySelector("#eventTitle"),
     prompt: document.querySelector("#eventPrompt"),
-    special: document.querySelector("#specialNote"),
+    eventCard: document.querySelector(".event-card"),
     grid: document.querySelector("#giftGrid"),
     score: document.querySelector("#relationshipScore"),
     meter: document.querySelector("#relationshipMeter"),
+    meterFill: document.querySelector("#relationshipMeterFill"),
+    meterGlint: document.querySelector("#meterGlint"),
     reaction: document.querySelector("#girlfriendReaction"),
+    boyfriendPanel: document.querySelector(".boyfriend-thought"),
     boyfriendThought: document.querySelector("#boyfriendThought"),
     endingScore: document.querySelector("#endingScore"),
     endingTitle: document.querySelector("#endingTitle"),
@@ -41,8 +46,10 @@
   function clearTransitionTimers() {
     window.clearTimeout(state.reactionTimer);
     window.clearTimeout(state.nextEventTimer);
+    window.cancelAnimationFrame(state.dayCountAnimationFrame);
     state.reactionTimer = null;
     state.nextEventTimer = null;
+    state.dayCountAnimationFrame = null;
   }
 
   function shuffle(items) {
@@ -66,6 +73,34 @@
     const startTime = Date.parse(`${data.relationshipStartDate}T00:00:00Z`);
     const eventTime = Date.parse(`${eventDate}T00:00:00Z`);
     return Math.floor((eventTime - startTime) / MILLISECONDS_PER_DAY) + 1;
+  }
+
+  function animateRelationshipDays(startDay, targetDay) {
+    window.cancelAnimationFrame(state.dayCountAnimationFrame);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      elements.days.textContent = targetDay;
+      state.dayCountAnimationFrame = null;
+      return;
+    }
+
+    const startedAt = window.performance.now();
+    elements.days.textContent = startDay;
+
+    function updateDayCount(now) {
+      const progress = Math.min((now - startedAt) / DAY_COUNT_DURATION, 1);
+      elements.days.textContent = Math.floor(startDay + (targetDay - startDay) * progress);
+
+      if (progress < 1) {
+        state.dayCountAnimationFrame = window.requestAnimationFrame(updateDayCount);
+        return;
+      }
+
+      elements.days.textContent = targetDay;
+      state.dayCountAnimationFrame = null;
+    }
+
+    state.dayCountAnimationFrame = window.requestAnimationFrame(updateDayCount);
   }
 
   function rememberOptions(options) {
@@ -112,11 +147,49 @@
     });
   }
 
-  function renderScore() {
+  function meterVisualWidth(score) {
+    return score === 0 ? "0%" : `calc(${score}% + 6px)`;
+  }
+
+  function setMeterVisualScore(score) {
+    elements.meterFill.style.setProperty("--meter-value", meterVisualWidth(score));
+  }
+
+  function renderScore({ updateVisual = true } = {}) {
     elements.score.textContent = state.score;
     elements.meter.value = state.score;
     elements.meter.textContent = `${state.score} / 100`;
     elements.meter.setAttribute("aria-valuetext", `${state.score} / 100`);
+    if (updateVisual) setMeterVisualScore(state.score);
+    elements.meterGlint.classList.toggle("hidden", state.score === 0);
+  }
+
+  function playReactionAnimations(previousScore) {
+    elements.reaction.classList.remove("reaction-entering");
+    elements.meterFill.classList.remove("meter-changing");
+    elements.meterFill.style.setProperty("--meter-from", meterVisualWidth(previousScore));
+    elements.meterFill.style.setProperty("--meter-to", meterVisualWidth(state.score));
+    elements.meterFill.style.setProperty("--meter-value", meterVisualWidth(state.score));
+    elements.reaction.classList.remove("hidden");
+
+    void elements.reaction.offsetWidth;
+
+    elements.reaction.classList.add("reaction-entering");
+    if (previousScore !== state.score) elements.meterFill.classList.add("meter-changing");
+  }
+
+  function playQuestionEntryAnimations() {
+    elements.eventCard.classList.remove("question-entering");
+    elements.grid.classList.remove("options-entering");
+    elements.boyfriendPanel.classList.remove("options-entering");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    void elements.eventCard.offsetWidth;
+
+    elements.eventCard.classList.add("question-entering");
+    elements.grid.classList.add("options-entering");
+    elements.boyfriendPanel.classList.add("options-entering");
   }
 
   function renderEvent() {
@@ -124,19 +197,24 @@
     state.isTransitioning = false;
     state.pendingEnding = null;
     const event = currentEvent();
+    const previousDay = state.currentIndex === 0
+      ? 0
+      : relationshipDay(data.events[state.currentIndex - 1].date);
     elements.icon.setAttribute("aria-label", `${event.title}的女友角色`);
-    elements.days.textContent = relationshipDay(event.date);
+    animateRelationshipDays(previousDay, relationshipDay(event.date));
     elements.lead.textContent = event.isTokyo ? "這次是" : "下禮拜是";
     elements.title.textContent = event.title;
-    elements.prompt.textContent = event.isTokyo ? "出差回來，要帶什麼給她？" : "你準備送什麼禮物呢？";
-    elements.special.classList.toggle("hidden", !event.isTokyo);
+    elements.prompt.textContent = event.isTokyo ? "出差回來，要帶什麼給她?" : "你準備送什麼禮物呢?";
     elements.reaction.classList.add("hidden");
+    elements.reaction.classList.remove("reaction-entering");
+    elements.meterFill.classList.remove("meter-changing");
     elements.reaction.textContent = "";
     elements.boyfriendThought.textContent = data.boyfriendThinkingText;
     renderScore();
     state.options = createOptions(event);
     renderOptions();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    playQuestionEntryAnimations();
+    window.scrollTo(0, 0);
   }
 
   function scoreResult(gift) {
@@ -166,13 +244,14 @@
       option.disabled = true;
     });
 
+    const previousScore = state.score;
     const result = scoreResult(gift);
     const reaction = data.reactions[result.reactionType];
     state.pendingEnding = result.ending || null;
     state.score = Math.max(0, Math.min(100, state.score + result.change));
     if (!state.pendingEnding && state.score === 0) state.pendingEnding = "breakup";
 
-    renderScore();
+    renderScore({ updateVisual: false });
 
     const event = currentEvent();
     state.history.push({
@@ -185,9 +264,8 @@
 
     state.reactionTimer = window.setTimeout(() => {
       elements.reaction.textContent = reaction.girlfriend;
-      elements.reaction.classList.remove("hidden");
+      playReactionAnimations(previousScore);
       elements.boyfriendThought.textContent = reaction.boyfriend;
-      elements.reaction.scrollIntoView({ behavior: "smooth", block: "center" });
       state.nextEventTimer = window.setTimeout(advanceAfterReaction, 5000);
     }, 1000);
   }
@@ -236,9 +314,24 @@
     elements.endingScore.textContent = state.score;
     elements.endingTitle.textContent = content.type;
     elements.endingDescription.textContent = content.description;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   }
 
   elements.start.addEventListener("click", startGame);
   elements.playAgain.addEventListener("click", startGame);
+  elements.reaction.addEventListener("animationend", () => {
+    elements.reaction.classList.remove("reaction-entering");
+  });
+  elements.meterFill.addEventListener("animationend", () => {
+    elements.meterFill.classList.remove("meter-changing");
+  });
+  elements.eventCard.addEventListener("animationend", () => {
+    elements.eventCard.classList.remove("question-entering");
+  });
+  elements.grid.addEventListener("animationend", () => {
+    elements.grid.classList.remove("options-entering");
+  });
+  elements.boyfriendPanel.addEventListener("animationend", () => {
+    elements.boyfriendPanel.classList.remove("options-entering");
+  });
 })();

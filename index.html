@@ -12,38 +12,51 @@
   <body class="intro-active">
     <main class="app-shell">
       <section class="intro" id="introScreen" aria-labelledby="introTitle">
-        <div class="intro-window">
-          <div class="window-titlebar">
-            <span>Test of Love</span>
-            <span class="window-hearts" aria-hidden="true">♥ ♥ ♥</span>
-          </div>
-          <div class="intro-window-content">
-            <h1 id="introTitle">你夠了解<br />女友想要什麼嗎？</h1>
-            <div class="intro-visual" role="img" aria-label="主視覺預留區"></div>
-            <button class="primary-button" id="startButton" type="button">開始測試</button>
+        <div class="love-window intro-window">
+          <div class="love-window-panel">
+            <div class="love-window-titlebar">
+              <span>Test of Love</span>
+              <span class="love-window-hearts" aria-hidden="true">
+                <img src="assets/question/heart.png" alt="" />
+                <img src="assets/question/heart.png" alt="" />
+                <img src="assets/question/heart.png" alt="" />
+              </span>
+            </div>
+            <div class="love-window-content intro-window-content">
+              <h1 id="introTitle">你夠了解<br />女友想要什麼嗎？</h1>
+              <div class="intro-visual" role="img" aria-label="主視覺預留區"></div>
+              <button class="primary-button" id="startButton" type="button">開始測試</button>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="game hidden" id="gameScreen" aria-live="polite">
-        <div class="question-window">
-          <div class="question-panel">
-            <div class="question-titlebar">
+        <div class="love-window question-window">
+          <div class="love-window-panel">
+            <div class="love-window-titlebar">
               <span>Test of Love</span>
-              <span class="question-hearts" aria-hidden="true">
+              <span class="love-window-hearts" aria-hidden="true">
                 <img src="assets/question/heart.png" alt="" />
                 <img src="assets/question/heart.png" alt="" />
                 <img src="assets/question/heart.png" alt="" />
               </span>
             </div>
 
-            <div class="question-window-content">
+            <div class="love-window-content question-window-content">
               <div class="relationship-panel">
                 <label class="relationship-label" for="relationshipMeter">
                   <img src="assets/question/heart.png" alt="" />
                   <span>好感度</span>
                 </label>
-                <progress id="relationshipMeter" max="100" value="30">30 / 100</progress>
+                <div class="relationship-meter">
+                  <progress class="visually-hidden" id="relationshipMeter" max="100" value="30">30 / 100</progress>
+                  <span class="relationship-meter-track" aria-hidden="true">
+                    <span class="relationship-meter-fill" id="relationshipMeterFill">
+                      <span class="meter-glint" id="meterGlint"></span>
+                    </span>
+                  </span>
+                </div>
                 <span class="visually-hidden">
                   目前關係值 <span id="relationshipScore">30</span> / 100
                 </span>
@@ -52,14 +65,8 @@
               <div class="question-main">
                 <div class="event-visual-stage">
                   <div class="girlfriend-character" id="eventIcon" aria-label="女友角色" role="img">
-                    <div class="girlfriend-texture" aria-hidden="true">
-                      <img src="assets/question/girlfriend-blob.png" alt="" />
-                    </div>
-                    <img class="girlfriend-eye girlfriend-eye-left" src="assets/question/girlfriend-eye-left.svg" alt="" />
-                    <img class="girlfriend-eye girlfriend-eye-right" src="assets/question/girlfriend-eye-right.svg" alt="" />
-                    <img class="girlfriend-mouth" src="assets/question/girlfriend-mouth.svg" alt="" />
+                    <img class="girlfriend-texture" src="assets/question/girl.webp" alt="" aria-hidden="true" />
                   </div>
-                  <p class="girlfriend-reaction-bubble hidden" id="girlfriendReaction" aria-live="polite"></p>
                 </div>
 
                 <p class="relationship-days">
@@ -72,24 +79,19 @@
                 <article class="event-card">
                   <h2 class="event-question">
                     <span id="eventLead">下禮拜是</span><strong id="eventTitle">聖誕節</strong>，<br />
-                    <span id="eventPrompt">你準備送什麼禮物呢？</span>
+                    <span id="eventPrompt">你準備送什麼禮物呢?</span>
                   </h2>
-                  <div class="special-note hidden" id="specialNote">
-                    東京出差任務只會出現專屬伴手禮清單
-                  </div>
                 </article>
 
                 <div class="gift-grid" id="giftGrid" role="group" aria-label="禮物選項"></div>
               </div>
+              <p class="girlfriend-reaction-bubble hidden" id="girlfriendReaction" aria-live="polite"></p>
             </div>
           </div>
 
           <aside class="boyfriend-thought" aria-label="男友碎碎念">
             <div class="boyfriend-visual" role="img" aria-label="男友角色">
-              <img class="boyfriend-texture" src="assets/question/boyfriend-blob.png" alt="" />
-              <img class="boyfriend-eye boyfriend-eye-left" src="assets/question/boyfriend-eye.svg" alt="" />
-              <img class="boyfriend-eye boyfriend-eye-right" src="assets/question/boyfriend-eye.svg" alt="" />
-              <img class="boyfriend-mouth" src="assets/question/boyfriend-mouth.svg" alt="" />
+              <img class="boyfriend-texture" src="assets/question/boy.webp" alt="" aria-hidden="true" />
             </div>
             <p id="boyfriendThought">送什麼好呢...</p>
           </aside>
@@ -97,21 +99,27 @@
       </section>
 
       <section class="ending hidden" id="endingScreen" aria-labelledby="endingTitle">
-        <div class="result-window">
-          <div class="window-titlebar">
-            <span>Test of Love</span>
-            <span class="window-hearts" aria-hidden="true">♥ ♥ ♥</span>
-          </div>
-          <div class="result-window-content">
-            <p class="result-label">你的戀愛求生指數</p>
-            <strong class="result-score" id="endingScore">0</strong>
-            <h1 id="endingTitle"></h1>
-            <div class="ending-visual" role="img" aria-label="結局主視覺預留區"></div>
-            <p class="ending-description" id="endingDescription"></p>
-            <div class="result-actions">
-              <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
-              <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
-              <button class="result-download-button" id="downloadResultButton" type="button">下載圖片</button>
+        <div class="love-window result-window">
+          <div class="love-window-panel">
+            <div class="love-window-titlebar">
+              <span>Test of Love</span>
+              <span class="love-window-hearts" aria-hidden="true">
+                <img src="assets/question/heart.png" alt="" />
+                <img src="assets/question/heart.png" alt="" />
+                <img src="assets/question/heart.png" alt="" />
+              </span>
+            </div>
+            <div class="love-window-content result-window-content">
+              <p class="result-label">你的戀愛求生指數</p>
+              <strong class="result-score" id="endingScore">0</strong>
+              <h1 id="endingTitle"></h1>
+              <div class="ending-visual" role="img" aria-label="結局主視覺預留區"></div>
+              <p class="ending-description" id="endingDescription"></p>
+              <div class="result-actions">
+                <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
+                <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
+                <button class="result-download-button" id="downloadResultButton" type="button">下載圖片</button>
+              </div>
             </div>
           </div>
         </div>
