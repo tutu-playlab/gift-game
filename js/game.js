@@ -8,6 +8,8 @@
     generalEventIndex: 0,
     nextRingAt: 0,
     score: INITIAL_SCORE,
+    mineCount: 0,
+    godGiftCount: 0,
     options: [],
     recentOptionIds: [],
     history: [],
@@ -40,7 +42,11 @@
     boyfriendThought: document.querySelector("#boyfriendThought"),
     endingScore: document.querySelector("#endingScore"),
     endingTitle: document.querySelector("#endingTitle"),
-    endingDescription: document.querySelector("#endingDescription")
+    endingDescription: document.querySelector("#endingDescription"),
+    mineCount: document.querySelector("#mineCount"),
+    godGiftCount: document.querySelector("#godGiftCount"),
+    mineCountBar: document.querySelector("#mineCountBar"),
+    godGiftCountBar: document.querySelector("#godGiftCountBar")
   };
 
   function clearTransitionTimers() {
@@ -249,6 +255,8 @@
     const reaction = data.reactions[result.reactionType];
     state.pendingEnding = result.ending || null;
     state.score = Math.max(0, Math.min(100, state.score + result.change));
+    if (result.change < 0) state.mineCount += 1;
+    if (gift.score === 10) state.godGiftCount += 1;
     if (!state.pendingEnding && state.score === 0) state.pendingEnding = "breakup";
 
     renderScore({ updateVisual: false });
@@ -266,7 +274,7 @@
       elements.reaction.textContent = reaction.girlfriend;
       playReactionAnimations(previousScore);
       elements.boyfriendThought.textContent = reaction.boyfriend;
-      state.nextEventTimer = window.setTimeout(advanceAfterReaction, 5000);
+      state.nextEventTimer = window.setTimeout(advanceAfterReaction, 2000);
     }, 1000);
   }
 
@@ -279,6 +287,12 @@
     state.generalEventIndex = 0;
     state.nextRingAt = randomRingInterval();
     state.score = INITIAL_SCORE;
+    state.mineCount = 0;
+    state.godGiftCount = 0;
+    elements.mineCount.textContent = "0";
+    elements.godGiftCount.textContent = "0";
+    elements.mineCountBar.style.width = "0%";
+    elements.godGiftCountBar.style.width = "0%";
     state.recentOptionIds = [];
     state.history = [];
     state.pendingEnding = null;
@@ -314,6 +328,10 @@
     elements.endingScore.textContent = state.score;
     elements.endingTitle.textContent = content.type;
     elements.endingDescription.textContent = content.description;
+    elements.mineCount.textContent = state.mineCount;
+    elements.godGiftCount.textContent = state.godGiftCount;
+    elements.mineCountBar.style.width = `${Math.min((state.mineCount / data.events.length) * 100, 100)}%`;
+    elements.godGiftCountBar.style.width = `${Math.min((state.godGiftCount / data.events.length) * 100, 100)}%`;
     window.scrollTo(0, 0);
   }
 

@@ -30,8 +30,14 @@ body {
 }
 
 body.intro-active,
-body.game-active,
 body.ending-active { background: var(--question-background); }
+
+body.game-active {
+  background-color: var(--question-background);
+  background-image: url("../assets/question/decor/bg-grid.png");
+  background-repeat: repeat;
+  background-size: 12px 12px;
+}
 
 body.intro-active .app-shell,
 body.game-active .app-shell,
@@ -215,6 +221,8 @@ h1 {
 .intro .primary-button:hover { background: #252525; }
 
 .game {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -224,11 +232,157 @@ h1 {
   font-family: "Noto Sans HK", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+.question-window {
+  z-index: 2;
+}
+
+.question-screen-decor {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 0;
+  width: min(100%, 390px);
+  height: 150px;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.screen-decor {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+}
+
+.screen-decor-console {
+  bottom: 10px;
+  left: 20px;
+  width: 84px;
+  transform: rotate(-11.13deg);
+}
+
+.screen-decor-cursor {
+  bottom: 49px;
+  left: 168px;
+  z-index: 4;
+  width: 42px;
+  transform: rotate(135deg);
+}
+
+.screen-decor-folder {
+  right: 91px;
+  bottom: 16px;
+  z-index: 2;
+  width: 57px;
+  transform: rotate(-11.93deg);
+}
+
+.screen-decor-window {
+  right: 10px;
+  bottom: 14px;
+  z-index: 1;
+  width: 107px;
+  transform: rotate(13.54deg);
+}
+
+.screen-decor-phone {
+  right: 46px;
+  bottom: 4px;
+  z-index: 3;
+  width: 54px;
+  transform: rotate(27.11deg);
+}
+
 .question-window-content {
+  isolation: isolate;
   gap: 24px;
 }
 
+/* 將卡片的粉紅色內陰影畫在裝飾背景上方，避免中間露出白色。 */
+.question-window-content::before {
+  position: absolute;
+  inset: 1px;
+  z-index: 4;
+  border-radius: 11px;
+  box-shadow: inset 3px 0 0 #fcd3e6;
+  content: "";
+  pointer-events: none;
+}
+
+.question-card-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.card-decor {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+}
+
+.card-decor-lightning-left {
+  top: 88px;
+  left: -12px;
+  width: 70px;
+  transform: rotate(1.5deg);
+}
+
+.card-decor-lightning-right {
+  top: 25px;
+  right: -14px;
+  width: 70px;
+  transform: rotate(-152.33deg);
+}
+
+.card-decor-heart-upper {
+  top: 16px;
+  left: 16px;
+  width: 39px;
+  transform: rotate(-20.43deg);
+}
+
+.card-decor-star-upper {
+  top: 0;
+  right: -17px;
+  width: 24px;
+  transform: rotate(24.54deg);
+}
+
+.card-decor-key {
+  top: 77px;
+  right: 28px;
+  width: 42px;
+  transform: rotate(22.19deg);
+}
+
+.card-decor-spark-left {
+  top: 214px;
+  left: -37px;
+  width: 29px;
+  transform: rotate(-21.11deg);
+}
+
+.card-decor-spark-right {
+  top: 158px;
+  right: -37px;
+  width: 29px;
+  transform: rotate(23.53deg);
+}
+
+.card-decor-star-side {
+  top: 340px;
+  right: -34px;
+  width: 24px;
+  transform: rotate(65.14deg);
+}
+
 .relationship-panel {
+  position: relative;
+  z-index: 4;
   width: 100%;
 }
 
@@ -325,11 +479,57 @@ h1 {
 }
 
 .question-main {
+  position: relative;
   display: flex;
   width: 100%;
   flex-direction: column;
   gap: 12px;
   align-items: center;
+}
+
+.question-main > :not(.question-card-decor) {
+  position: relative;
+  z-index: 3;
+}
+
+.question-patterns {
+  position: absolute;
+  inset: 1px;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 11px;
+  pointer-events: none;
+}
+
+.question-pattern {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.question-pattern-checker {
+  top: 67px;
+  right: 0;
+  left: 14px;
+  height: 270px;
+  background-color: #fffdf7;
+  background-image: url("../assets/question/decor/bg-checker.png");
+  background-repeat: repeat;
+  background-size: 24.185px 24.185px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 112px, rgb(0 0 0 / 65%) 178px, transparent 246px);
+  mask-image: linear-gradient(to bottom, #000 0 112px, rgb(0 0 0 / 65%) 178px, transparent 246px);
+}
+
+.question-pattern-grid {
+  top: 419px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff8d2;
+  background-image: url("../assets/question/decor/bg-yellow-grid.png");
+  background-repeat: repeat;
+  background-size: 12px 12px;
+  border-radius: 0 0 12px 12px;
 }
 
 .event-visual-stage {
@@ -339,8 +539,22 @@ h1 {
   flex: 0 0 120px;
 }
 
+.girl-orbit-decor {
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  z-index: 0;
+  display: block;
+  width: 309.106px;
+  height: 115.72px;
+  max-width: none;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
 .girlfriend-character {
   position: relative;
+  z-index: 1;
   width: 197.246px;
   height: 120px;
 }
@@ -413,7 +627,7 @@ h1 {
   position: absolute;
   top: 78px;
   right: 18px;
-  z-index: 2;
+  z-index: 20;
   max-width: 148px;
   margin: 0;
   padding: 4px 8px;
@@ -558,33 +772,90 @@ h1 {
 
 .boyfriend-thought {
   position: absolute;
-  right: 27px;
-  bottom: -42.757px;
-  z-index: 3;
-  width: 180px;
-  height: 96.757px;
+  bottom: -59px;
+  left: -4px;
+  z-index: 6;
+  width: 197px;
+  height: 102.208px;
   margin: 0;
+}
+
+.question-bottom-decor {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+  width: 100%;
+  height: 50px;
+  pointer-events: none;
+}
+
+.question-edge-decor {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+}
+
+.question-edge-star {
+  top: -10px;
+  left: 198px;
+  width: 41px;
+  transform: rotate(-8deg);
+}
+
+.question-edge-heart {
+  top: -7px;
+  right: 8px;
+  width: 33px;
+  transform: rotate(-14deg);
+}
+
+.boyfriend-decor {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.boyfriend-decor-star {
+  top: -19px;
+  left: -12px;
+  width: 29px;
+  height: 35px;
+  transform: rotate(-17deg);
+}
+
+.boyfriend-decor-heart {
+  top: -10px;
+  left: 126px;
+  width: 29px;
+  transform: rotate(-12deg);
 }
 
 .boyfriend-visual {
   position: absolute;
   top: 0;
   left: 0;
-  width: 119px;
-  height: 96.757px;
+  z-index: 1;
+  width: 125.705px;
+  height: 102.208px;
 }
 
 .boyfriend-texture {
   display: block;
-  width: 119px;
-  height: 96.757px;
+  width: 125.705px;
+  height: 102.208px;
   object-fit: cover;
 }
 
 .boyfriend-thought p {
   position: absolute;
-  top: 16px;
-  left: 80px;
+  top: 32px;
+  left: 91px;
+  z-index: 3;
   margin: 0;
   padding: 4px 8px;
   color: #000;
@@ -639,6 +910,60 @@ h1 {
   white-space: pre-line;
 }
 
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.result-stat-card {
+  min-width: 0;
+  padding: 16px 12px 14px;
+  background: #fff;
+  border: 2px solid var(--pink-title);
+  border-radius: 22px;
+}
+
+.result-stat-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.result-stat-icon { font-size: 28px; line-height: 1; }
+
+.result-stat-card p {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  margin: 8px 0 12px;
+}
+
+.result-stat-card p strong { font-size: 42px; line-height: 1; }
+.result-stat-card p span { font-size: 18px; }
+
+.result-stat-track {
+  height: 10px;
+  overflow: hidden;
+  background: #ddd;
+  border: 1px solid #aaa;
+  border-radius: 999px;
+}
+
+.result-stat-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--pink-title);
+  border-radius: inherit;
+}
+
 .result-actions {
   display: grid;
   width: 100%;
@@ -684,17 +1009,26 @@ h1 {
 @media (max-width: 560px) and (min-height: 850px) {
   .game {
     justify-content: center;
-    padding-bottom: calc(max(32px, env(safe-area-inset-bottom)) + 42.757px);
+    padding-bottom: calc(max(32px, env(safe-area-inset-bottom)) + 59px);
   }
 }
 
 @media (max-width: 360px) {
   .intro,
   .game,
-  .ending { padding-right: 16px; padding-left: 16px; }
+  .ending { padding-right: 24px; padding-left: 24px; }
 
   .question-window-content { padding-right: 13px; padding-left: 13px; }
-  .boyfriend-thought { right: 27px; }
+  .boyfriend-thought { right: auto; left: -4px; }
+  .card-decor-lightning-right,
+  .card-decor-key,
+  .card-decor-spark-right,
+  .card-decor-star-side { display: none; }
+  .result-stats { gap: 8px; }
+  .result-stat-card { padding-right: 8px; padding-left: 8px; }
+  .result-stat-heading { font-size: 15px; }
+  .result-stat-icon { font-size: 24px; }
+  .result-stat-card p strong { font-size: 36px; }
 }
 
 @media (max-height: 760px) {

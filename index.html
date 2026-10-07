@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="測試節日與隨機禮物選項的互動 prototype" />
     <title>送禮大作戰｜隨機選項測試</title>
-    <link rel="stylesheet" href="css/style.css?v=20261005-1" />
-    <script src="js/data.js?v=20261005-1" defer></script>
-    <script src="js/game.js?v=20261005-1" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20261007-1" />
+    <script src="js/data.js?v=20261007-1" defer></script>
+    <script src="js/game.js?v=20261007-1" defer></script>
   </head>
   <body class="intro-active">
     <main class="app-shell">
@@ -32,6 +32,14 @@
       </section>
 
       <section class="game hidden" id="gameScreen" aria-live="polite">
+        <div class="question-screen-decor" aria-hidden="true">
+          <img class="screen-decor screen-decor-console" src="assets/question/decor/console.webp" alt="" />
+          <img class="screen-decor screen-decor-cursor" src="assets/question/decor/cursor.webp" alt="" />
+          <img class="screen-decor screen-decor-folder" src="assets/question/decor/folder.webp" alt="" />
+          <img class="screen-decor screen-decor-window" src="assets/question/decor/window.webp" alt="" />
+          <img class="screen-decor screen-decor-phone" src="assets/question/decor/phone.webp" alt="" />
+        </div>
+
         <div class="love-window question-window">
           <div class="love-window-panel">
             <div class="love-window-titlebar">
@@ -44,6 +52,11 @@
             </div>
 
             <div class="love-window-content question-window-content">
+              <div class="question-patterns" aria-hidden="true">
+                <span class="question-pattern question-pattern-checker"></span>
+                <span class="question-pattern question-pattern-grid"></span>
+              </div>
+
               <div class="relationship-panel">
                 <label class="relationship-label" for="relationshipMeter">
                   <img src="assets/question/heart.png" alt="" />
@@ -63,7 +76,19 @@
               </div>
 
               <div class="question-main">
+                <div class="question-card-decor" aria-hidden="true">
+                  <img class="card-decor card-decor-lightning-left" src="assets/question/decor/lightning.webp" alt="" />
+                  <img class="card-decor card-decor-lightning-right" src="assets/question/decor/lightning.webp" alt="" />
+                  <img class="card-decor card-decor-heart-upper" src="assets/question/heart.png" alt="" />
+                  <img class="card-decor card-decor-star-upper" src="assets/question/decor/star.webp" alt="" />
+                  <img class="card-decor card-decor-key" src="assets/question/decor/key.webp" alt="" />
+                  <img class="card-decor card-decor-spark-left" src="assets/question/decor/sparkle.webp" alt="" />
+                  <img class="card-decor card-decor-spark-right" src="assets/question/decor/sparkle.webp" alt="" />
+                  <img class="card-decor card-decor-star-side" src="assets/question/decor/star.webp" alt="" />
+                </div>
+
                 <div class="event-visual-stage">
+                  <img class="girl-orbit-decor" src="assets/question/decor/girl-decor.svg" alt="" aria-hidden="true" />
                   <div class="girlfriend-character" id="eventIcon" aria-label="女友角色" role="img">
                     <img class="girlfriend-texture" src="assets/question/girl.webp" alt="" aria-hidden="true" />
                   </div>
@@ -89,7 +114,14 @@
             </div>
           </div>
 
+          <div class="question-bottom-decor" aria-hidden="true">
+            <img class="question-edge-decor question-edge-star" src="assets/question/decor/sparkle.webp" alt="" />
+            <img class="question-edge-decor question-edge-heart" src="assets/question/heart.png" alt="" />
+          </div>
+
           <aside class="boyfriend-thought" aria-label="男友碎碎念">
+            <img class="boyfriend-decor boyfriend-decor-star" src="assets/question/decor/sparkle.webp" alt="" aria-hidden="true" />
+            <img class="boyfriend-decor boyfriend-decor-heart" src="assets/question/heart.png" alt="" aria-hidden="true" />
             <div class="boyfriend-visual" role="img" aria-label="男友角色">
               <img class="boyfriend-texture" src="assets/question/boy.webp" alt="" aria-hidden="true" />
             </div>
@@ -115,6 +147,24 @@
               <h1 id="endingTitle"></h1>
               <div class="ending-visual" role="img" aria-label="結局主視覺預留區"></div>
               <p class="ending-description" id="endingDescription"></p>
+              <div class="result-stats" aria-label="送禮過程統計">
+                <section class="result-stat-card result-stat-mine" aria-labelledby="mineStatLabel">
+                  <div class="result-stat-heading">
+                    <span class="result-stat-icon" aria-hidden="true">💣</span>
+                    <span id="mineStatLabel">踩雷次數</span>
+                  </div>
+                  <p><strong id="mineCount">0</strong><span>次</span></p>
+                  <div class="result-stat-track" aria-hidden="true"><span id="mineCountBar"></span></div>
+                </section>
+                <section class="result-stat-card result-stat-god" aria-labelledby="godGiftStatLabel">
+                  <div class="result-stat-heading">
+                    <span class="result-stat-icon" aria-hidden="true">🎁</span>
+                    <span id="godGiftStatLabel">神級送禮</span>
+                  </div>
+                  <p><strong id="godGiftCount">0</strong><span>次</span></p>
+                  <div class="result-stat-track" aria-hidden="true"><span id="godGiftCountBar"></span></div>
+                </section>
+              </div>
               <div class="result-actions">
                 <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
                 <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
