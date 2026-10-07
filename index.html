@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="測試節日與隨機禮物選項的互動 prototype" />
     <title>送禮大作戰｜隨機選項測試</title>
-    <link rel="stylesheet" href="css/style.css?v=20261007-1" />
-    <script src="js/data.js?v=20261007-1" defer></script>
-    <script src="js/game.js?v=20261007-1" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20261007-25" />
+    <script src="js/data.js?v=20261007-2" defer></script>
+    <script src="js/game.js?v=20261007-2" defer></script>
   </head>
   <body class="intro-active">
     <main class="app-shell">
@@ -142,34 +142,60 @@
               </span>
             </div>
             <div class="love-window-content result-window-content">
-              <p class="result-label">你的戀愛求生指數</p>
-              <strong class="result-score" id="endingScore">0</strong>
-              <h1 id="endingTitle"></h1>
-              <div class="ending-visual" role="img" aria-label="結局主視覺預留區"></div>
-              <p class="ending-description" id="endingDescription"></p>
-              <div class="result-stats" aria-label="送禮過程統計">
-                <section class="result-stat-card result-stat-mine" aria-labelledby="mineStatLabel">
-                  <div class="result-stat-heading">
-                    <span class="result-stat-icon" aria-hidden="true">💣</span>
-                    <span id="mineStatLabel">踩雷次數</span>
-                  </div>
-                  <p><strong id="mineCount">0</strong><span>次</span></p>
-                  <div class="result-stat-track" aria-hidden="true"><span id="mineCountBar"></span></div>
-                </section>
-                <section class="result-stat-card result-stat-god" aria-labelledby="godGiftStatLabel">
-                  <div class="result-stat-heading">
-                    <span class="result-stat-icon" aria-hidden="true">🎁</span>
-                    <span id="godGiftStatLabel">神級送禮</span>
-                  </div>
-                  <p><strong id="godGiftCount">0</strong><span>次</span></p>
-                  <div class="result-stat-track" aria-hidden="true"><span id="godGiftCountBar"></span></div>
-                </section>
+              <div class="result-pattern" aria-hidden="true"></div>
+              <div class="result-fixed-layout">
+                <div class="result-score-background" aria-hidden="true">
+                  <img class="result-decor result-decor-score-burst" src="assets/result/score-burst.png" alt="" />
+                </div>
+                <div class="result-score-decor" aria-hidden="true">
+                  <img class="result-score-decor-image" src="assets/result/score-decor.png" alt="" />
+                </div>
+                <p class="result-label">你的戀愛求生指數</p>
+                <strong class="result-score" id="endingScore">0</strong>
+                <h1 id="endingTitle"></h1>
+                <div class="ending-visual" role="img" aria-label="男友角色">
+                  <img src="assets/question/boy.webp" alt="" aria-hidden="true" />
+                  <img class="result-character-spark" src="assets/question/decor/star.webp" alt="" aria-hidden="true" />
+                  <img class="result-character-star" src="assets/question/decor/sparkle.webp" alt="" aria-hidden="true" />
+                  <img class="result-character-key" src="assets/question/decor/key.webp" alt="" aria-hidden="true" />
+                </div>
+                <p class="ending-description">
+                  <span id="endingDescription"></span>
+                  <strong id="endingPunchline"></strong>
+                </p>
+                <div class="result-stats" aria-label="送禮過程統計">
+                  <section class="result-stat-card result-stat-mine" aria-labelledby="mineStatLabel">
+                    <img class="result-stat-icon" src="assets/result/mine.png" alt="" aria-hidden="true" />
+                    <span class="result-stat-heading" id="mineStatLabel">踩雷次數</span>
+                    <p><strong id="mineCount">0</strong><span>次</span></p>
+                    <div class="relationship-meter result-stat-meter" aria-hidden="true">
+                      <span class="relationship-meter-track">
+                        <span class="relationship-meter-fill" id="mineCountBar"><span class="meter-glint"></span></span>
+                      </span>
+                    </div>
+                  </section>
+                  <section class="result-stat-card result-stat-god" aria-labelledby="godGiftStatLabel">
+                    <img class="result-stat-icon" src="assets/result/god-gift.png" alt="" aria-hidden="true" />
+                    <span class="result-stat-heading" id="godGiftStatLabel">神級送禮</span>
+                    <p><strong id="godGiftCount">0</strong><span>次</span></p>
+                    <div class="relationship-meter result-stat-meter" aria-hidden="true">
+                      <span class="relationship-meter-track">
+                        <span class="relationship-meter-fill" id="godGiftCountBar"><span class="meter-glint"></span></span>
+                      </span>
+                    </div>
+                  </section>
+                </div>
               </div>
-              <div class="result-actions">
-                <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
-                <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
-                <button class="result-download-button" id="downloadResultButton" type="button">下載圖片</button>
-              </div>
+            </div>
+          </div>
+          <div class="result-actions">
+            <img class="result-action-cursor" src="assets/question/decor/cursor.webp" alt="" aria-hidden="true" />
+            <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
+            <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
+            <div class="result-download-wrap">
+              <img src="assets/question/heart.png" alt="" aria-hidden="true" />
+              <button class="result-download-button" id="downloadResultButton" type="button">儲存結果圖片</button>
+              <img src="assets/question/heart.png" alt="" aria-hidden="true" />
             </div>
           </div>
         </div>

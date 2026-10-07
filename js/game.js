@@ -43,6 +43,7 @@
     endingScore: document.querySelector("#endingScore"),
     endingTitle: document.querySelector("#endingTitle"),
     endingDescription: document.querySelector("#endingDescription"),
+    endingPunchline: document.querySelector("#endingPunchline"),
     mineCount: document.querySelector("#mineCount"),
     godGiftCount: document.querySelector("#godGiftCount"),
     mineCountBar: document.querySelector("#mineCountBar"),
@@ -327,7 +328,9 @@
     elements.ending.classList.remove("hidden");
     elements.endingScore.textContent = state.score;
     elements.endingTitle.textContent = content.type;
-    elements.endingDescription.textContent = content.description;
+    const descriptionLines = content.description.split("\n");
+    elements.endingPunchline.textContent = descriptionLines.pop() || "";
+    elements.endingDescription.textContent = descriptionLines.join("\n");
     elements.mineCount.textContent = state.mineCount;
     elements.godGiftCount.textContent = state.godGiftCount;
     elements.mineCountBar.style.width = `${Math.min((state.mineCount / data.events.length) * 100, 100)}%`;
