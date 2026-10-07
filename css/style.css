@@ -1191,6 +1191,7 @@ h1 {
 
 @media (min-width: 391px) and (max-width: 560px) {
   .result-score-decor-image {
+    top: 7.333px;
     width: clamp(292.74px, calc(292.74px + (100vw - 390px) * 0.4), 312.74px);
   }
 }
