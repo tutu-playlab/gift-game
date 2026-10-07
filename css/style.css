@@ -1044,9 +1044,9 @@ h1 {
 }
 
 .result-decor-score-burst {
-  top: 55.333px;
+  top: 48px;
   left: 50%;
-  width: 226px;
+  width: 208px;
   transform: translateX(-50%);
 }
 
