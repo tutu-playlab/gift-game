@@ -639,6 +639,60 @@ h1 {
   white-space: pre-line;
 }
 
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.result-stat-card {
+  min-width: 0;
+  padding: 16px 12px 14px;
+  background: #fff;
+  border: 2px solid var(--pink-title);
+  border-radius: 22px;
+}
+
+.result-stat-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.result-stat-icon { font-size: 28px; line-height: 1; }
+
+.result-stat-card p {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  margin: 8px 0 12px;
+}
+
+.result-stat-card p strong { font-size: 42px; line-height: 1; }
+.result-stat-card p span { font-size: 18px; }
+
+.result-stat-track {
+  height: 10px;
+  overflow: hidden;
+  background: #ddd;
+  border: 1px solid #aaa;
+  border-radius: 999px;
+}
+
+.result-stat-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--pink-title);
+  border-radius: inherit;
+}
+
 .result-actions {
   display: grid;
   width: 100%;
@@ -695,6 +749,11 @@ h1 {
 
   .question-window-content { padding-right: 13px; padding-left: 13px; }
   .boyfriend-thought { right: 27px; }
+  .result-stats { gap: 8px; }
+  .result-stat-card { padding-right: 8px; padding-left: 8px; }
+  .result-stat-heading { font-size: 15px; }
+  .result-stat-icon { font-size: 24px; }
+  .result-stat-card p strong { font-size: 36px; }
 }
 
 @media (max-height: 760px) {

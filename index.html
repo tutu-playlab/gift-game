@@ -115,6 +115,24 @@
               <h1 id="endingTitle"></h1>
               <div class="ending-visual" role="img" aria-label="結局主視覺預留區"></div>
               <p class="ending-description" id="endingDescription"></p>
+              <div class="result-stats" aria-label="送禮過程統計">
+                <section class="result-stat-card result-stat-mine" aria-labelledby="mineStatLabel">
+                  <div class="result-stat-heading">
+                    <span class="result-stat-icon" aria-hidden="true">💣</span>
+                    <span id="mineStatLabel">踩雷次數</span>
+                  </div>
+                  <p><strong id="mineCount">0</strong><span>次</span></p>
+                  <div class="result-stat-track" aria-hidden="true"><span id="mineCountBar"></span></div>
+                </section>
+                <section class="result-stat-card result-stat-god" aria-labelledby="godGiftStatLabel">
+                  <div class="result-stat-heading">
+                    <span class="result-stat-icon" aria-hidden="true">🎁</span>
+                    <span id="godGiftStatLabel">神級送禮</span>
+                  </div>
+                  <p><strong id="godGiftCount">0</strong><span>次</span></p>
+                  <div class="result-stat-track" aria-hidden="true"><span id="godGiftCountBar"></span></div>
+                </section>
+              </div>
               <div class="result-actions">
                 <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
                 <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
