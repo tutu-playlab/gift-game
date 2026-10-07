@@ -31,7 +31,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
 }
 
-body.intro-active { background: var(--question-background); }
+body.intro-active {
+  background-color: var(--question-background);
+  background-image: url("../assets/question/decor/bg-grid.png");
+  background-repeat: repeat;
+  background-size: 12px 12px;
+}
 
 body.game-active,
 body.ending-active {
@@ -41,10 +46,15 @@ body.ending-active {
   background-size: 12px 12px;
 }
 
-body.intro-active .app-shell,
 body.game-active .app-shell,
 body.ending-active .app-shell {
   width: 100%;
+  padding-bottom: 0;
+}
+
+body.intro-active .app-shell {
+  width: min(100%, 390px);
+  min-height: 100svh;
   padding-bottom: 0;
 }
 
@@ -75,14 +85,27 @@ a:focus-visible {
   padding-bottom: 64px;
 }
 
-/* 三個頁面共用的視窗卡片元件 */
-.intro,
+/* 遊戲與結果頁共用的視窗卡片元件 */
 .ending {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100svh;
   padding: max(32px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+  text-align: center;
+}
+
+.intro {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  width: 100%;
+  height: 100svh;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  padding: max(50px, env(safe-area-inset-top)) 24px max(12px, env(safe-area-inset-bottom));
+  overflow: hidden;
   text-align: center;
 }
 
@@ -161,21 +184,117 @@ a:focus-visible {
   box-shadow: inset 3px 0 0 #fcd3e6;
 }
 
-.intro-window-content {
-  min-height: 630px;
+.intro-layout {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex: 0 0 auto;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.intro-badge {
+  display: block;
+  width: 68px;
+  height: auto;
 }
 
 .intro h1 {
-  font-size: clamp(30px, 8vw, 36px);
+  width: 100%;
+  margin: 20px 0 0;
+  color: #00000e;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.28;
+  letter-spacing: -.02em;
+}
+
+.intro h1 span { display: block; }
+
+.intro h1 em {
+  color: var(--pink-title);
+  font-size: 50px;
+  font-style: normal;
+  line-height: 1;
 }
 
 .intro-visual {
-  width: min(82%, 280px);
-  aspect-ratio: 1.615 / 1;
-  margin-top: 36px;
-  background: #d9d9d9;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 16px;
+}
+
+.intro-cta {
+  position: relative;
+  width: 100%;
+  margin-top: 86px;
+}
+
+.intro-cta-cursor {
+  position: absolute;
+  top: -51px;
+  left: -2px;
+  display: block;
+  width: 50px;
+  height: auto;
+  pointer-events: none;
+  transform: rotate(135deg);
+}
+
+.intro-bottom-decor {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  z-index: 1;
+  width: 100%;
+  height: 111px;
+  min-height: 0;
+  max-height: 111px;
+  flex: 1 1 111px;
+  margin-top: 12px;
+  overflow: visible;
+  pointer-events: none;
+  transform: none;
+}
+
+.intro-decor {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+}
+
+.intro-decor-console {
+  bottom: 16px;
+  left: 20px;
+  width: 84px;
+  transform: rotate(-11.13deg);
+}
+
+.intro-decor-window {
+  right: 18px;
+  bottom: 22px;
+  width: 107px;
+  transform: rotate(13.54deg);
+}
+
+.intro-decor-folder {
+  right: 99px;
+  bottom: 26px;
+  z-index: 2;
+  width: 57px;
+  transform: rotate(-11.93deg);
+}
+
+.intro-decor-phone {
+  right: 56px;
+  bottom: 16px;
+  z-index: 3;
+  width: 54px;
+  transform: rotate(27.11deg);
 }
 
 .eyebrow {
@@ -212,15 +331,16 @@ h1 {
 
 .intro .primary-button {
   max-width: none;
-  min-height: 48px;
-  margin-top: 26px;
+  min-height: 56px;
+  margin-top: 0;
   color: white;
-  background: #000;
-  border-radius: 999px;
+  font-size: 17px;
+  background: #5150a9;
+  border-radius: 14px;
   box-shadow: none;
 }
 
-.intro .primary-button:hover { background: #252525; }
+.intro .primary-button:hover { background: #41408f; }
 
 .game {
   position: relative;
@@ -1229,17 +1349,28 @@ h1 {
   }
 }
 
+/* 短螢幕將裝飾往底部靠近 12px，接近 700px 高時平滑回到原位。 */
+@media (max-height: 700px) {
+  .intro-bottom-decor {
+    transform: translateY(clamp(0px, calc(168px - 24svh), 12px));
+  }
+}
+
 @media (max-height: 760px) {
-  .intro,
   .game,
   .ending {
     padding-top: max(16px, env(safe-area-inset-top));
     padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
 
-  .intro-window-content {
-    min-height: min(630px, calc(100svh - 60px));
+  .intro {
+    padding-top: max(24px, env(safe-area-inset-top));
   }
+  .intro-badge { width: 62px; }
+  .intro h1 { margin-top: 9px; font-size: 36px; line-height: 1.22; }
+  .intro-visual { margin-top: 16px; }
+  .intro-cta { margin-top: 50px; }
+  .intro-cta-cursor { top: -49px; width: 43px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
