@@ -5,29 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="測試節日與隨機禮物選項的互動 prototype" />
     <title>送禮大作戰｜隨機選項測試</title>
-    <link rel="stylesheet" href="css/style.css?v=20261007-25" />
+    <link rel="stylesheet" href="css/style.css?v=20261007-27" />
     <script src="js/data.js?v=20261007-2" defer></script>
     <script src="js/game.js?v=20261007-2" defer></script>
   </head>
   <body class="intro-active">
     <main class="app-shell">
       <section class="intro" id="introScreen" aria-labelledby="introTitle">
-        <div class="love-window intro-window">
-          <div class="love-window-panel">
-            <div class="love-window-titlebar">
-              <span>Test of Love</span>
-              <span class="love-window-hearts" aria-hidden="true">
-                <img src="assets/question/heart.png" alt="" />
-                <img src="assets/question/heart.png" alt="" />
-                <img src="assets/question/heart.png" alt="" />
-              </span>
-            </div>
-            <div class="love-window-content intro-window-content">
-              <h1 id="introTitle">你夠了解<br />女友想要什麼嗎？</h1>
-              <div class="intro-visual" role="img" aria-label="主視覺預留區"></div>
-              <button class="primary-button" id="startButton" type="button">開始測試</button>
-            </div>
+        <div class="intro-layout">
+          <img class="intro-badge" src="assets/intro/nice-badge.png" alt="" aria-hidden="true" />
+          <h1 id="introTitle">
+            <span>你夠了解</span>
+            <span>女友想要什麼</span>
+            <span><em>禮物</em>嗎？</span>
+          </h1>
+          <img
+            class="intro-visual"
+            src="assets/intro/main-image.webp"
+            alt="兩個相依的愛心與黃色角色，置於 Test of Love 視窗中"
+          />
+          <div class="intro-cta">
+            <img class="intro-cta-cursor" src="assets/question/decor/cursor.webp" alt="" aria-hidden="true" />
+            <button class="primary-button" id="startButton" type="button">開始測試</button>
           </div>
+        </div>
+
+        <div class="intro-bottom-decor" aria-hidden="true">
+          <img class="intro-decor intro-decor-console" src="assets/question/decor/console.webp" alt="" />
+          <img class="intro-decor intro-decor-window" src="assets/question/decor/window.webp" alt="" />
+          <img class="intro-decor intro-decor-folder" src="assets/question/decor/folder.webp" alt="" />
+          <img class="intro-decor intro-decor-phone" src="assets/question/decor/phone.webp" alt="" />
         </div>
       </section>
 
