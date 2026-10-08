@@ -227,7 +227,9 @@
   function scoreResult(gift) {
     if (gift.isRing) {
       if (state.score > 90) return { change: 0, ending: "proposal", reactionType: "positive" };
-      if (state.score < 60) return { change: 0, ending: "breakup", reactionType: "negative" };
+      if (state.score < 60) {
+        return { change: 0, ending: "proposal-failure", scoreOverride: 0, reactionType: "negative" };
+      }
       return { change: -10, reactionType: "negative" };
     }
 
@@ -237,7 +239,7 @@
 
   function formatChange(change, gift) {
     if (gift.isRing && state.pendingEnding === "proposal") return "求婚成功！";
-    if (gift.isRing && state.pendingEnding === "breakup") return "關係直接破裂";
+    if (gift.isRing && state.pendingEnding === "proposal-failure") return "求婚失敗";
     return `關係值 ${change > 0 ? "+" : ""}${change}`;
   }
 
@@ -255,7 +257,8 @@
     const result = scoreResult(gift);
     const reaction = data.reactions[result.reactionType];
     state.pendingEnding = result.ending || null;
-    state.score = Math.max(0, Math.min(100, state.score + result.change));
+    const nextScore = result.scoreOverride ?? state.score + result.change;
+    state.score = Math.max(0, Math.min(100, nextScore));
     if (result.change < 0) state.mineCount += 1;
     if (gift.score === 10) state.godGiftCount += 1;
     if (!state.pendingEnding && state.score === 0) state.pendingEnding = "breakup";
@@ -321,12 +324,13 @@
   }
 
   function showEnding() {
-    const content = endingContent(state.score);
+    const isProposalFailure = state.pendingEnding === "proposal-failure";
+    const content = isProposalFailure ? data.proposalFailureEnding : endingContent(state.score);
     document.body.classList.remove("game-active");
     document.body.classList.add("ending-active");
     elements.game.classList.add("hidden");
     elements.ending.classList.remove("hidden");
-    elements.endingScore.textContent = state.score;
+    elements.endingScore.textContent = isProposalFailure ? content.score : state.score;
     elements.endingTitle.textContent = content.type;
     const descriptionLines = content.description.split("\n");
     elements.endingPunchline.textContent = descriptionLines.pop() || "";
