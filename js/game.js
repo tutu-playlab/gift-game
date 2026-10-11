@@ -42,6 +42,8 @@
     boyfriendThought: document.querySelector("#boyfriendThought"),
     endingScore: document.querySelector("#endingScore"),
     endingTitle: document.querySelector("#endingTitle"),
+    endingVisual: document.querySelector(".ending-visual"),
+    endingBoyfriendImage: document.querySelector("#endingBoyfriendImage"),
     endingDescription: document.querySelector("#endingDescription"),
     endingPunchline: document.querySelector("#endingPunchline"),
     mineCount: document.querySelector("#mineCount"),
@@ -332,6 +334,8 @@
     elements.ending.classList.remove("hidden");
     elements.endingScore.textContent = isProposalFailure ? content.score : state.score;
     elements.endingTitle.textContent = content.type;
+    elements.endingBoyfriendImage.src = content.image;
+    elements.endingVisual.setAttribute("aria-label", `${content.type}角色`);
     const descriptionLines = content.description.split("\n");
     elements.endingPunchline.textContent = descriptionLines.pop() || "";
     elements.endingDescription.textContent = descriptionLines.join("\n");
