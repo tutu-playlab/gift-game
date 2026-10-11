@@ -53,7 +53,14 @@ window.GIFT_GAME_DATA = {
     { id: "shoes", label: "送他一雙好看的鞋！", score: -20 },
     { id: "umbrella", label: "最近都在下雨，送他雨傘", score: -20 },
     { id: "acne-gel", label: "聽說最近某個牌子的痘痘藥很好用，就決定是它了", score: -20 },
-    { id: "surprise-clothes", label: "沒看過他穿裙子買一件給她！", score: -20 }
+    { id: "surprise-clothes", label: "沒看過他穿裙子買一件給她！", score: -20 },
+    { id: "home-cooked-meal", label: "煮一頓三菜一湯給她吃！", score: 5 },
+    { id: "coffee-gift-card", label: "儲值200元的咖啡禮券", score: -20 },
+    { id: "ask-girlfriend-directly", label: "好怕買錯，直接問女友看看", score: -10 },
+    { id: "check-search-history", label: "偷看她的搜尋紀錄，找看看她最近想要什麼", score: -20 },
+    { id: "ask-her-best-friend", label: "偷問她的女生好朋友，看女友最近喜歡什麼", score: 5 },
+    { id: "lingerie-set", label: "買一套的性感睡衣！", score: -20 },
+    { id: "fine-dining-set-menu", label: "請她一頓高級的餐廳套餐", score: 0 }
   ],
 
   ringGift: { id: "proposal-ring", label: "跪下來拿出婚戒，跟她求婚", isRing: true },
