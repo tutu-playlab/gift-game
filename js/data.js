@@ -28,7 +28,7 @@ window.GIFT_GAME_DATA = {
     { id: "short-trip", label: "兩天一夜的輕旅行，創造兩個人的回憶", score: 5 },
     { id: "first-date-place", label: "帶她重遊第一次約會的地方，回想當時的悸動", score: 10 },
     { id: "bank-transfer", label: "直接霸氣轉帳1314元給她，留言1314520", score: -10 },
-    { id: "chiikawa-stickers", label: "他最喜歡的角色吉伊卡哇的LINE貼圖", score: -10 },
+    { id: "chiikawa-stickers", label: "他最喜歡的卡通角色的LINE貼圖", score: -10 },
     { id: "preserved-flowers", label: "現在最流行的永生花，跟我們的愛一樣不滅", score: 5 },
     { id: "perfume", label: "她之前聊天的時候提過的香水", score: 5 },
     { id: "massage-coupon", label: "自製按摩券，可以幫她按摩666 分鐘", score: -10 },
@@ -57,6 +57,12 @@ window.GIFT_GAME_DATA = {
   ],
 
   ringGift: { id: "proposal-ring", label: "跪下來拿出婚戒，跟她求婚", isRing: true },
+
+  proposalFailureEnding: {
+    score: 0,
+    type: "恭喜成為前男友",
+    description: "女友大大地嚇了一跳，立即分手。\n你是不是搞錯了彼此的步調了呢。\n好消息：你不用準備下一份禮物了。"
+  },
 
   tokyoGifts: [
     { id: "airport-top-souvenir", label: "在機場排行榜第一的伴手禮", score: -20 },
