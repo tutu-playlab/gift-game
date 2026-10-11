@@ -115,6 +115,27 @@
 9. **合併到 `main`**：只有在功能確認後才 Merge。未經使用者明確要求，不自行 Merge。
 10. **確認 GitHub Pages**：合併後等待自動部署，再檢查正式網址、手機版、重新整理及主要流程。
 
+### 資源快取版本檢查（每次發布前都必須執行）
+
+- 若本次修改 `css/style.css`、`js/data.js` 或 `js/game.js`，發布前必須檢查 `index.html` 中對應的 `?v=` 資源版本參數。
+- 版本參數必須使用尚未使用過的新值，避免與已發布版本重複而繼續命中舊快取。
+- 每次 Commit 或 Push 前，主動告知使用者本次哪些資源需要更新版本參數、預計使用的新版本號，並詢問使用者是否確認更新。
+- 若本次只修改 HTML 或文件，且沒有變更 CSS 與 JavaScript，也要告知使用者本次無需更新資源版本參數。
+
+### Push branch 防呆檢查（每次都必須執行）
+
+工作 branch 在 Push 前後必須逐項確認，不能只依賴 GitHub Desktop 的按鈕文字或成功提示：
+
+1. **記錄 `main` 狀態**：Push 前先 Fetch，記錄 `origin/main` 的 commit SHA，作為 Push 後比對基準。
+2. **確認目前 branch**：執行 `git status --short --branch`，確認目前不是 `main`，而是本次工作的 branch。
+3. **確認上游分支**：工作 branch 的 upstream（上游分支）只能是遠端同名 branch，例如 `codex/fix-mobile-layout` 對應 `origin/codex/fix-mobile-layout`。如果顯示 `origin/main`，立即停止，不得 Push。
+4. **新 branch 的正確狀態**：尚未發布的新 branch 應顯示沒有 upstream，並在 GitHub Desktop 使用 **Publish branch**；若使用終端機，應明確 Push 目前 branch 到遠端同名 branch，不把 `origin/main` 當成目的地。
+5. **辨識危險提示**：GitHub Desktop 若顯示 **Push origin/main**，或任何視窗雖然提到工作 branch、但主畫面的 Push 目標仍是 `origin/main`，一律視為不安全狀態。停止操作、重新載入 GitHub Desktop 並再次檢查，不按 **Push Commits**、**Push origin/main** 或其他可能沿用舊 upstream 的按鈕。
+6. **確認後才 Push**：公開前檢查與使用者確認完成後，Push 的目的地必須明確寫出遠端同名工作 branch。
+7. **Push 後雙重驗證**：再次 Fetch，確認遠端同名工作 branch 已存在、其 commit SHA 與本機 `HEAD` 相同，並確認 `origin/main` 仍等於 Push 前記錄的 SHA。
+8. **驗證完成才提供 PR**：只有第 7 項全部通過，才可告知 Push 成功並提供 Pull Request 連結。
+9. **發現 `main` 異動立即停止**：如果 Push 後 `origin/main` 意外改變，立即向使用者說明，不自行 force push、reset、revert 或嘗試掩蓋問題。
+
 補充規則：
 
 - GitHub Desktop 出現不熟悉的 Changes、衝突、Push、Pull 或 Publish 提示時，先停止並請 Codex 檢查，不猜測操作。
