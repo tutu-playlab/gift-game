@@ -68,6 +68,7 @@ window.GIFT_GAME_DATA = {
   proposalFailureEnding: {
     score: 0,
     type: "恭喜成為前男友",
+    image: "assets/result/boyfriends/proposal-failed-boyfriend.webp",
     description: "女友大大地嚇了一跳，立即分手。\n你是不是搞錯了彼此的步調了呢。\n好消息：你不用準備下一份禮物了。"
   },
 
@@ -84,6 +85,7 @@ window.GIFT_GAME_DATA = {
       maxScore: 100,
       relationshipStatus: "非常甜蜜",
       type: "別人家的男友",
+      image: "assets/result/boyfriends/other-boyfriend.webp",
       description: "女友隨口說過的話你比誰記得還清楚，\n說是 90 分沒人敢說自己是 100 分。\n恭喜你成為眾女心中「別人家的男友」，\n勸你低調一點，不要出來破壞市場行情！"
     },
     {
@@ -91,6 +93,7 @@ window.GIFT_GAME_DATA = {
       maxScore: 79,
       relationshipStatus: "感情穩定",
       type: "戀愛求生高手",
+      image: "assets/result/boyfriends/survival-master-boyfriend.webp",
       description: "大部分時候都能精準命中女友的喜好，\n雖然偶爾也會踩個小雷，\n但靠著一片真心也總是能安全下莊！\n戀愛不一定要滿分，活到最後才是高手。"
     },
     {
@@ -98,6 +101,7 @@ window.GIFT_GAME_DATA = {
       maxScore: 59,
       relationshipStatus: "開始有摩擦",
       type: "小心翼翼型男友",
+      image: "assets/result/boyfriends/cautious-boyfriend.webp",
       description: "「這個……應該不會錯吧？」\n送女友禮物總是搞得像在打仗一樣，\n小心翼翼深怕一不小心就被砍頭。\n下次放鬆心情挑選禮物，\n說不定會有不一樣的收穫喔！"
     },
     {
@@ -105,6 +109,7 @@ window.GIFT_GAME_DATA = {
       maxScore: 39,
       relationshipStatus: "關係危險",
       type: "奇蹟生還型男友",
+      image: "assets/result/boyfriends/miracle-survivor-boyfriend.webp",
       description: "「咦怎麼突然生氣了？」\n送禮基本靠心情，\n從來沒發現自己撿回好幾條小命的樂天派，\n卻總能莫名其妙活到最後（？"
     },
     {
@@ -112,6 +117,7 @@ window.GIFT_GAME_DATA = {
       maxScore: 19,
       relationshipStatus: "分手邊緣",
       type: "快要放棄型男友",
+      image: "assets/result/boyfriends/giving-up-boyfriend.webp",
       description: "「蛤？我又做錯什麼了？」\n每次看她臉色不對，\n才開始瘋狂回想自己到底做了什麼。\n能撐到現在，可能已經是奇蹟了……\n友情提醒：現在道歉可能還來得及喔！"
     },
     {
@@ -119,6 +125,7 @@ window.GIFT_GAME_DATA = {
       maxScore: 0,
       relationshipStatus: "關係破裂",
       type: "恭喜成為前男友",
+      image: "assets/result/boyfriends/ex-boyfriend.webp",
       description: "她收下了禮物，\n也收回了對你的愛。\n好消息：你不用準備下一份禮物了。"
     }
   ],

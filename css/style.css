@@ -1079,47 +1079,19 @@ h1 {
 
 .ending-visual {
   position: relative;
-  width: 126px;
+  width: 174px;
   height: 103px;
   margin: 4px auto 0;
   background: transparent;
 }
 
-.ending-visual > img:first-child {
+.ending-character-image {
   display: block;
-  width: 126px;
+  width: auto;
+  max-width: 174px;
   height: 103px;
+  margin: 0 auto;
   object-fit: contain;
-}
-
-.result-character-spark,
-.result-character-star,
-.result-character-key {
-  position: absolute;
-  display: block;
-  height: auto;
-  pointer-events: none;
-}
-
-.result-character-spark {
-  top: 20px;
-  left: -14px;
-  width: 24px;
-  transform: rotate(18deg);
-}
-
-.result-character-star {
-  top: 23px;
-  right: -20px;
-  width: 34px;
-  transform: rotate(-8deg);
-}
-
-.result-character-key {
-  right: -18px;
-  bottom: 2px;
-  width: 38px;
-  transform: rotate(-9deg);
 }
 
 .ending-description {
