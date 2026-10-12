@@ -1,7 +1,8 @@
 (() => {
   const componentScript = document.currentScript;
-  const stylesheetUrl = componentScript
-    ? new URL("site-footer.css", componentScript.src).href
+  const componentUrl = componentScript ? new URL(componentScript.src) : null;
+  const stylesheetUrl = componentUrl
+    ? new URL(`site-footer.css${componentUrl.search}`, componentUrl).href
     : "components/site-footer.css";
 
   if (!document.querySelector("link[data-site-footer-styles]")) {
@@ -17,12 +18,11 @@
       if (this.dataset.rendered === "true") return;
 
       const currentPage = this.getAttribute("current-page");
-      const isPrivacyPage = currentPage === "privacy";
       const links = [
         { key: "game", label: "遊戲首頁", href: "/gift-game/" },
         { key: "articles", label: "送禮研究所", href: "/gift-game/articles/" },
-        { key: "about", label: "關於我們", href: "/" },
-        { key: "privacy", label: "隱私權政策", href: isPrivacyPage ? "./" : "/privacy/" },
+        { key: "about", label: "關於我們", href: "/#about" },
+        { key: "privacy", label: "隱私權政策", href: "/privacy/" },
       ];
 
       const linkMarkup = links
