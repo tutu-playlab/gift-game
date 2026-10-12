@@ -26,9 +26,10 @@
       ];
 
       const linkMarkup = links
-        .map(({ key, label, href }) => {
+        .map(({ key, label, href }, index) => {
           const currentAttribute = currentPage === key ? ' aria-current="page"' : "";
-          return `<a href="${href}"${currentAttribute}>${label}</a>`;
+          const separator = index > 0 ? '<span class="site-footer-separator" aria-hidden="true">|</span>' : "";
+          return `${separator}<a href="${href}"${currentAttribute}>${label}</a>`;
         })
         .join("");
 
