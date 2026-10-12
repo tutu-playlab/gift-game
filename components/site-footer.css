@@ -1,0 +1,63 @@
+site-footer {
+  display: block;
+  width: min(100%, 680px);
+  margin-top: 38px;
+  color: #4c4c4c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+}
+
+.site-footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.site-footer-links a {
+  color: #4c4c4c;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.site-footer-links a:hover {
+  color: #2f2f2f;
+}
+
+.site-footer-links a:focus-visible {
+  outline: 3px solid #7b4ce2;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.site-footer-links a[aria-current="page"] {
+  text-decoration-thickness: 2px;
+}
+
+.site-footer p {
+  color: #4c4c4c;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.site-footer-note {
+  margin: 16px 0 0;
+}
+
+.site-footer-copyright {
+  margin: 8px 0 0;
+}
+
+/* 大螢幕手機與桌機將頁尾文字統一為 14px，手機版維持 Figma 的原始尺寸。 */
+@media (min-width: 430px) {
+  .site-footer-links a,
+  .site-footer p {
+    font-size: 14px;
+  }
+}
