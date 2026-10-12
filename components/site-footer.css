@@ -12,11 +12,9 @@ body.game-active site-footer {
 }
 
 .site-footer-links {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  align-items: start;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
 }
 
 .site-footer-links a {
@@ -28,6 +26,13 @@ body.game-active site-footer {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+}
+
+.site-footer-separator {
+  color: #4c4c4c;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
 }
 
 .site-footer-links a:hover {
@@ -46,7 +51,7 @@ body.game-active site-footer {
 
 .site-footer p {
   color: #4c4c4c;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 300;
   line-height: 1.5;
 }
@@ -57,12 +62,4 @@ body.game-active site-footer {
 
 .site-footer-copyright {
   margin: 8px 0 0;
-}
-
-/* 大螢幕手機與桌機將頁尾文字統一為 14px，手機版維持 Figma 的原始尺寸。 */
-@media (min-width: 430px) {
-  .site-footer-links a,
-  .site-footer p {
-    font-size: 14px;
-  }
 }
