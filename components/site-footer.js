@@ -20,7 +20,11 @@
       const currentPage = this.getAttribute("current-page");
       const links = [
         { key: "game", label: "遊戲首頁", href: "/gift-game/" },
-        { key: "articles", label: "送禮研究所", href: "/gift-game/articles/" },
+        {
+          key: "articles",
+          label: "送禮研究所",
+          href: "/gift-game/articles/practical-gift-mistakes/",
+        },
         { key: "about", label: "關於我們", href: "/#about" },
         { key: "privacy", label: "隱私權政策", href: "/privacy/" },
       ];
