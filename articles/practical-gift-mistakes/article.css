@@ -222,10 +222,6 @@ li + li {
   background: var(--cta-hover);
 }
 
-.article-page > site-footer {
-  width: min(calc(100% - 48px), 680px);
-}
-
 @media (max-width: 560px) {
   .article-content {
     padding-right: 20px;

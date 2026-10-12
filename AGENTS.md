@@ -51,7 +51,7 @@
 - 優先確保手機版體驗，同時讓桌面瀏覽器正常使用。
 - 優先採用簡單、容易閱讀及容易交接的做法。
 - 避免把所有 HTML、CSS、JavaScript 與資料寫進單一檔案。
-- 跨頁共用頁尾統一使用 `components/site-footer.js` 與 `components/site-footer.css`；各頁只放置 `<site-footer>` 並標示目前頁面，不在個別頁面複製或另外維護頁尾內容與樣式。
+- 全站唯一的共用頁尾元件由工作室首頁專案維護，正式路徑為 `/components/site-footer.js` 與 `/components/site-footer.css`。本專案各頁只放置 `<site-footer>`、標示目前頁面，並以 `/components/site-footer.js?v={版本號}` 載入，不在遊戲專案複製或另外維護頁尾內容與樣式。
 - UI 文案和遊戲資料不要散落在程式邏輯中。
 - 重要或不直觀的邏輯可以加入繁體中文註解，但不要逐行註解。
 - 圖片優先使用適合網頁的 WebP 或 SVG，並控制檔案大小。
