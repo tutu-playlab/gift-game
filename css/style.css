@@ -1239,30 +1239,6 @@ h1 {
   border-radius: 12px;
 }
 
-.result-download-wrap {
-  position: relative;
-  display: grid;
-  grid-template-columns: 28px 1fr 28px;
-  align-items: center;
-}
-
-.result-download-wrap > img {
-  display: block;
-  width: 25px;
-  height: auto;
-}
-
-.result-download-wrap > img:first-child { transform: rotate(-26deg); }
-.result-download-wrap > img:last-child { justify-self: end; transform: rotate(18deg); }
-
-.result-download-button {
-  min-height: 36px !important;
-  padding: 4px !important;
-  color: #000;
-  background: transparent;
-  border: 0;
-}
-
 .result-action-cursor {
   position: absolute;
   top: -34px;
