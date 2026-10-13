@@ -1,6 +1,7 @@
 (() => {
   const data = window.GIFT_GAME_DATA;
   const INITIAL_SCORE = 30;
+  const COPY_FEEDBACK_DURATION = 2200;
   const DAY_COUNT_DURATION = 800;
   const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
   const state = {
@@ -17,7 +18,8 @@
     pendingEnding: null,
     reactionTimer: null,
     nextEventTimer: null,
-    dayCountAnimationFrame: null
+    dayCountAnimationFrame: null,
+    copyFeedbackTimer: null
   };
 
   const elements = {
@@ -26,6 +28,7 @@
     ending: document.querySelector("#endingScreen"),
     start: document.querySelector("#startButton"),
     playAgain: document.querySelector("#playAgainButton"),
+    copyGameLink: document.querySelector("#copyGameLinkButton"),
     icon: document.querySelector("#eventIcon"),
     days: document.querySelector("#relationshipDays"),
     lead: document.querySelector("#eventLead"),
@@ -59,6 +62,68 @@
     state.reactionTimer = null;
     state.nextEventTimer = null;
     state.dayCountAnimationFrame = null;
+  }
+
+  function gameLink() {
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.hash = "";
+    url.pathname = url.pathname.replace(/\/index\.html$/, "/");
+    return url.href;
+  }
+
+  function copyWithLegacyFallback(text) {
+    const input = document.createElement("textarea");
+    input.value = text;
+    input.setAttribute("readonly", "");
+    input.style.position = "fixed";
+    input.style.opacity = "0";
+    document.body.append(input);
+    input.select();
+    input.setSelectionRange(0, input.value.length);
+
+    let copied = false;
+    try {
+      copied = document.execCommand("copy");
+    } finally {
+      input.remove();
+    }
+    return copied;
+  }
+
+  async function writeToClipboard(text) {
+    if (navigator.clipboard?.writeText && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch (error) {
+        // 部分瀏覽器即使支援 Clipboard API，仍可能拒絕權限，改用舊版備援方式。
+      }
+    }
+
+    if (!copyWithLegacyFallback(text)) throw new Error("Clipboard access failed");
+  }
+
+  function resetCopyLinkButton() {
+    window.clearTimeout(state.copyFeedbackTimer);
+    state.copyFeedbackTimer = null;
+    elements.copyGameLink.disabled = false;
+    elements.copyGameLink.textContent = elements.copyGameLink.dataset.defaultLabel;
+  }
+
+  async function copyGameLink() {
+    window.clearTimeout(state.copyFeedbackTimer);
+    elements.copyGameLink.disabled = true;
+
+    try {
+      await writeToClipboard(gameLink());
+      elements.copyGameLink.textContent = elements.copyGameLink.dataset.successLabel;
+    } catch (error) {
+      elements.copyGameLink.textContent = elements.copyGameLink.dataset.errorLabel;
+    }
+
+    elements.copyGameLink.disabled = false;
+    state.copyFeedbackTimer = window.setTimeout(resetCopyLinkButton, COPY_FEEDBACK_DURATION);
   }
 
   function shuffle(items) {
@@ -286,6 +351,7 @@
 
   function startGame() {
     clearTransitionTimers();
+    resetCopyLinkButton();
     document.body.classList.remove("intro-active");
     document.body.classList.remove("ending-active");
     document.body.classList.add("game-active");
@@ -348,6 +414,7 @@
 
   elements.start.addEventListener("click", startGame);
   elements.playAgain.addEventListener("click", startGame);
+  elements.copyGameLink.addEventListener("click", copyGameLink);
   elements.reaction.addEventListener("animationend", () => {
     elements.reaction.classList.remove("reaction-entering");
   });

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="測試節日與隨機禮物選項的互動 prototype" />
     <title>送禮大作戰｜隨機選項測試</title>
-    <link rel="stylesheet" href="css/style.css?v=20261011-2" />
+    <link rel="stylesheet" href="css/style.css?v=20261013-1" />
     <script src="js/data.js?v=20261011-2" defer></script>
-    <script src="js/game.js?v=20261011-2" defer></script>
+    <script src="js/game.js?v=20261013-1" defer></script>
     <script src="/components/site-footer.js?v=20261013-2" defer></script>
   </head>
   <body class="intro-active">
@@ -195,13 +195,16 @@
           </div>
           <div class="result-actions">
             <img class="result-action-cursor" src="assets/question/decor/cursor.webp" alt="" aria-hidden="true" />
-            <button class="result-share-button" id="shareResultButton" type="button">邀請朋友測測看</button>
+            <button
+              class="result-share-button"
+              id="copyGameLinkButton"
+              type="button"
+              data-default-label="複製連結分享給朋友"
+              data-success-label="已複製到剪貼簿！"
+              data-error-label="複製失敗，請再試一次"
+              aria-live="polite"
+            >複製連結分享給朋友</button>
             <button class="result-retry-button" id="playAgainButton" type="button">再測一次</button>
-            <div class="result-download-wrap">
-              <img src="assets/question/heart.png" alt="" aria-hidden="true" />
-              <button class="result-download-button" id="downloadResultButton" type="button">儲存結果圖片</button>
-              <img src="assets/question/heart.png" alt="" aria-hidden="true" />
-            </div>
           </div>
         </div>
       </section>
