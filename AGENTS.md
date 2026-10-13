@@ -31,6 +31,16 @@
 
 這些是目前的預設方向，不是永遠不可改變的限制。如果測試結果或功能需求顯示需要調整，先解釋原因、成本與遷移方式。
 
+## Repository 與發布架構
+
+工作室網站與《送禮大作戰》由同一個 GitHub 帳號維護，但使用兩個獨立的 Repository，Git branch、Commit、Push 與 Pull Request 都必須分開處理：
+
+- [`tutu-playlab/tutu-playlab.github.io`](https://github.com/tutu-playlab/tutu-playlab.github.io) 管理工作室共用內容，包括網站根目錄首頁、`/privacy/` 隱私權政策及 `/components/` 共用元件。
+- [`tutu-playlab/gift-game`](https://github.com/tutu-playlab/gift-game) 管理《送禮大作戰》，發布到 `/gift-game/`，包含遊戲、遊戲專屬文章與相關素材。
+- 兩個 Repository 發布後會組合在同一個 GitHub Pages 網域：工作室首頁為 `https://tutu-playlab.github.io/`，遊戲為 `https://tutu-playlab.github.io/gift-game/`。
+- 影響兩邊的修改，例如團隊品牌、共用頁尾版本、共用導覽或隱私權連結，必須分別建立 branch、Commit、Push 與 Pull Request，並確認兩個 `main` 都完成部署。
+- 分享給玩家時使用正式網站網址；分享給協作者檢查程式或修改時使用對應的 Repository 或 Pull Request 連結。`localhost`、`127.0.0.1` 與 `file://` 只供本機預覽，不能當成對外分享連結。
+
 ## 網站資訊架構
 
 工作室未來可能推出與送禮無關的其他遊戲，因此工作室共用內容與各遊戲內容要分開管理。路徑以網站根目錄為基準，不綁定尚未購買的自訂網域。
