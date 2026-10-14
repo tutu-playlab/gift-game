@@ -65,11 +65,18 @@ window.GIFT_GAME_DATA = {
 
   ringGift: { id: "proposal-ring", label: "跪下來拿出婚戒，跟她求婚", isRing: true },
 
+  proposalSuccessEnding: {
+    score: 100,
+    type: "恭喜成為準新郎",
+    image: "assets/result/boyfriends/proposal-success-boyfriend.webp",
+    description: "送禮有一套，求婚也有一套\n沒想到真的讓你求婚成功啦！\n但別開心得太早，\n婚後還是要繼續精準拿捏老婆的心呦！"
+  },
+
   proposalFailureEnding: {
     score: 0,
     type: "恭喜成為前男友",
     image: "assets/result/boyfriends/proposal-failed-boyfriend.webp",
-    description: "女友大大地嚇了一跳，立即分手。\n你是不是搞錯了彼此的步調了呢。\n好消息：你不用準備下一份禮物了。"
+    description: "等等等等！女友原地嚇瘋\n你以為的浪漫時刻，是愛情的最後一刻呢\n確定你們兩個的步調有統一嗎？！\n好消息：你不用準備下一份禮物了。"
   },
 
   tokyoGifts: [
