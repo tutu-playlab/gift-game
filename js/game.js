@@ -293,7 +293,9 @@
 
   function scoreResult(gift) {
     if (gift.isRing) {
-      if (state.score > 90) return { change: 0, ending: "proposal", reactionType: "positive" };
+      if (state.score > 90) {
+        return { change: 0, ending: "proposal", scoreOverride: 100, reactionType: "positive" };
+      }
       if (state.score < 60) {
         return { change: 0, ending: "proposal-failure", scoreOverride: 0, reactionType: "negative" };
       }
@@ -392,13 +394,16 @@
   }
 
   function showEnding() {
-    const isProposalFailure = state.pendingEnding === "proposal-failure";
-    const content = isProposalFailure ? data.proposalFailureEnding : endingContent(state.score);
+    const specialEnding = {
+      proposal: data.proposalSuccessEnding,
+      "proposal-failure": data.proposalFailureEnding
+    }[state.pendingEnding];
+    const content = specialEnding || endingContent(state.score);
     document.body.classList.remove("game-active");
     document.body.classList.add("ending-active");
     elements.game.classList.add("hidden");
     elements.ending.classList.remove("hidden");
-    elements.endingScore.textContent = isProposalFailure ? content.score : state.score;
+    elements.endingScore.textContent = specialEnding ? content.score : state.score;
     elements.endingTitle.textContent = content.type;
     elements.endingBoyfriendImage.src = content.image;
     elements.endingVisual.setAttribute("aria-label", `${content.type}角色`);
