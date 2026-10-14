@@ -972,7 +972,7 @@ h1 {
   display: block;
   width: 125.705px;
   height: 102.208px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .boyfriend-thought p {
