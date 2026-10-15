@@ -23,7 +23,7 @@ window.GIFT_GAME_DATA = {
     { id: "heated-mug", label: "插電之後可以10秒瞬間加熱的酷炫馬克杯，自己也好想要！", score: 0 },
     { id: "flowers", label: "一束大大的花，跟他說我愛你", score: 5 },
     { id: "chocolate", label: "好吃的巧克力，跟他說我愛你", score: -10 },
-    { id: "chiikawa-red-envelope", label: "她最喜歡的角色吉伊卡哇的紅包袋，裡面包666元", score: -20 },
+    { id: "chiikawa-red-envelope", label: "她最喜歡的卡通角色的紅包袋，裡面包666元", score: -20 },
     { id: "couple-mugs", label: "情侶一對的馬克杯", score: 5 },
     { id: "short-trip", label: "兩天一夜的輕旅行，創造兩個人的回憶", score: 5 },
     { id: "first-date-place", label: "帶她重遊第一次約會的地方，回想當時的悸動", score: 10 },
