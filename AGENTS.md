@@ -53,6 +53,7 @@
 - 未來新增的遊戲使用自己的頂層路徑，例如 `/{game-name}/`；若有專屬文章，放在 `/{game-name}/articles/`。
 - 《送禮大作戰》頁尾預計包含「送禮研究所」→ `/gift-game/articles/`、「關於我們」→ `/#about`、「隱私權政策」→ `/privacy/`。
 - 「隱私與 Cookie 設定」是 Cookie 同意管理工具的設定按鈕，不是內容頁。尚未啟用相關工具時不顯示，啟用後再加入頁尾。
+- 取得 AdSense Publisher ID 後，要在工作室首頁 Repository 的網站根目錄新增 Google 提供的正式 `ads.txt` 紀錄，並確認 `/ads.txt` 可正常開啟；取得 ID 前不建立假資料或佔位檔。
 
 目前 GitHub Pages 網址為 `https://tutu-playlab.github.io/gift-game/`。未來啟用工作室自訂網域時，只更換網域名稱並保留上述路徑，避免《送禮大作戰》的既有連結與搜尋紀錄失效。
 

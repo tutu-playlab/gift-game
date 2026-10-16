@@ -34,6 +34,7 @@
     lead: document.querySelector("#eventLead"),
     title: document.querySelector("#eventTitle"),
     prompt: document.querySelector("#eventPrompt"),
+    eventQuestion: document.querySelector(".event-question"),
     eventCard: document.querySelector(".event-card"),
     grid: document.querySelector("#giftGrid"),
     score: document.querySelector("#relationshipScore"),
@@ -289,6 +290,7 @@
     renderOptions();
     playQuestionEntryAnimations();
     window.scrollTo(0, 0);
+    elements.eventQuestion.focus({ preventScroll: true });
   }
 
   function scoreResult(gift) {
@@ -415,6 +417,7 @@
     elements.mineCountBar.style.width = `${Math.min((state.mineCount / data.events.length) * 100, 100)}%`;
     elements.godGiftCountBar.style.width = `${Math.min((state.godGiftCount / data.events.length) * 100, 100)}%`;
     window.scrollTo(0, 0);
+    elements.endingTitle.focus({ preventScroll: true });
   }
 
   elements.start.addEventListener("click", startGame);
