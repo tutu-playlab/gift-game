@@ -42,9 +42,10 @@
       name="twitter:image:alt"
       content="粉紅色愛心與黃色角色出現在 Test of Love 復古遊戲視窗中"
     />
+    <link rel="icon" type="image/png" href="/gift-game/assets/question/heart.png" />
     <link rel="stylesheet" href="css/style.css?v=20261015-1" />
-    <script src="js/data.js?v=20261015-2" defer></script>
-    <script src="js/game.js?v=20261014-2" defer></script>
+    <script src="js/data.js?v=20261016-1" defer></script>
+    <script src="js/game.js?v=20261016-1" defer></script>
     <script src="/components/site-footer.js?v=20261013-2" defer></script>
   </head>
   <body class="intro-active">
@@ -147,7 +148,7 @@
                 </p>
 
                 <article class="event-card">
-                  <h2 class="event-question">
+                  <h2 class="event-question" tabindex="-1">
                     <span id="eventLead">下禮拜是</span><strong id="eventTitle">聖誕節</strong>，<br />
                     <span id="eventPrompt">你準備送什麼禮物呢?</span>
                   </h2>
@@ -197,7 +198,7 @@
                 </div>
                 <p class="result-label">你的戀愛求生指數</p>
                 <strong class="result-score" id="endingScore">0</strong>
-                <h1 id="endingTitle"></h1>
+                <h1 id="endingTitle" tabindex="-1"></h1>
                 <div class="ending-visual" role="img" aria-label="別人家的男友角色">
                   <img class="ending-character-image" id="endingBoyfriendImage" src="assets/result/boyfriends/other-boyfriend.webp" alt="" aria-hidden="true" />
                 </div>
