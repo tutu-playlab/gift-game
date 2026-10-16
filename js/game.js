@@ -1,5 +1,6 @@
 (() => {
   const data = window.GIFT_GAME_DATA;
+  const GAME_ID = "gift-game";
   const INITIAL_SCORE = 30;
   const COPY_FEEDBACK_DURATION = 2200;
   const DAY_COUNT_DURATION = 800;
@@ -16,6 +17,7 @@
     history: [],
     isTransitioning: false,
     pendingEnding: null,
+    currentEndingId: null,
     reactionTimer: null,
     nextEventTimer: null,
     dayCountAnimationFrame: null,
@@ -55,6 +57,13 @@
     mineCountBar: document.querySelector("#mineCountBar"),
     godGiftCountBar: document.querySelector("#godGiftCountBar")
   };
+
+  function trackGameEvent(eventName, parameters = {}) {
+    window.TwoMoreGamesAnalytics?.track(eventName, {
+      game_id: GAME_ID,
+      ...parameters
+    });
+  }
 
   function clearTransitionTimers() {
     window.clearTimeout(state.reactionTimer);
@@ -119,6 +128,10 @@
     try {
       await writeToClipboard(gameLink());
       elements.copyGameLink.textContent = elements.copyGameLink.dataset.successLabel;
+      trackGameEvent("result_shared", {
+        ending_id: state.currentEndingId,
+        share_method: "copy_link"
+      });
     } catch (error) {
       elements.copyGameLink.textContent = elements.copyGameLink.dataset.errorLabel;
     }
@@ -289,6 +302,10 @@
     state.options = createOptions(event);
     renderOptions();
     playQuestionEntryAnimations();
+    trackGameEvent("holiday_viewed", {
+      holiday_id: event.id,
+      holiday_number: state.currentIndex + 1
+    });
     window.scrollTo(0, 0);
     elements.eventQuestion.focus({ preventScroll: true });
   }
@@ -327,6 +344,13 @@
     const previousScore = state.score;
     const result = scoreResult(gift);
     const reaction = data.reactions[result.reactionType];
+    const event = currentEvent();
+    trackGameEvent("gift_selected", {
+      holiday_id: event.id,
+      holiday_number: state.currentIndex + 1,
+      gift_id: gift.id,
+      gift_result: result.reactionType
+    });
     state.pendingEnding = result.ending || null;
     const nextScore = result.scoreOverride ?? state.score + result.change;
     state.score = Math.max(0, Math.min(100, nextScore));
@@ -336,7 +360,6 @@
 
     renderScore({ updateVisual: false });
 
-    const event = currentEvent();
     state.history.push({
       year: event.year,
       event: event.title,
@@ -372,6 +395,7 @@
     state.recentOptionIds = [];
     state.history = [];
     state.pendingEnding = null;
+    state.currentEndingId = null;
     elements.intro.classList.add("hidden");
     elements.ending.classList.add("hidden");
     elements.game.classList.remove("hidden");
@@ -401,6 +425,12 @@
       "proposal-failure": data.proposalFailureEnding
     }[state.pendingEnding];
     const content = specialEnding || endingContent(state.score);
+    const endingCategory = state.pendingEnding === "proposal"
+      ? "proposal_success"
+      : state.pendingEnding === "proposal-failure" || state.score === 0
+        ? "relationship_ended"
+        : "completed";
+    state.currentEndingId = content.id;
     document.body.classList.remove("game-active");
     document.body.classList.add("ending-active");
     elements.game.classList.add("hidden");
@@ -416,12 +446,31 @@
     elements.godGiftCount.textContent = state.godGiftCount;
     elements.mineCountBar.style.width = `${Math.min((state.mineCount / data.events.length) * 100, 100)}%`;
     elements.godGiftCountBar.style.width = `${Math.min((state.godGiftCount / data.events.length) * 100, 100)}%`;
+    const endingParameters = {
+      ending_id: content.id,
+      ending_category: endingCategory,
+      completion_status: state.history.length === data.events.length ? "full_run" : "early_ending",
+      final_score: specialEnding ? content.score : state.score,
+      holidays_completed: state.history.length,
+      mine_count: state.mineCount,
+      god_gift_count: state.godGiftCount
+    };
+    trackGameEvent("game_completed", endingParameters);
+    if (endingCategory === "relationship_ended") {
+      trackGameEvent("relationship_ended", endingParameters);
+    }
     window.scrollTo(0, 0);
     elements.endingTitle.focus({ preventScroll: true });
   }
 
-  elements.start.addEventListener("click", startGame);
-  elements.playAgain.addEventListener("click", startGame);
+  elements.start.addEventListener("click", () => {
+    trackGameEvent("game_started");
+    startGame();
+  });
+  elements.playAgain.addEventListener("click", () => {
+    trackGameEvent("game_restarted", { previous_ending_id: state.currentEndingId });
+    startGame();
+  });
   elements.copyGameLink.addEventListener("click", copyGameLink);
   elements.reaction.addEventListener("animationend", () => {
     elements.reaction.classList.remove("reaction-entering");

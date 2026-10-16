@@ -96,7 +96,7 @@
 
 ## 8. 程式資料與狀態
 
-事件、一般禮物、東京禮物、婚戒、角色反應與結局內容集中在 `js/data.js`。遊戲流程與目前狀態由 `js/game.js` 管理，主要包含：
+事件、一般禮物、東京禮物、婚戒、角色反應與結局內容集中在 `js/data.js`。每個事件、禮物與結局都有不隨顯示文案改變的穩定 `id`，供程式判斷與 GA4 彙整使用。遊戲流程與目前狀態由 `js/game.js` 管理，主要包含：
 
 ```js
 const state = {
@@ -107,11 +107,12 @@ const state = {
   options: [],
   recentOptionIds: [],
   history: [],
-  pendingEnding: null
+  pendingEnding: null,
+  currentEndingId: null
 };
 ```
 
-目前狀態只存在頁面記憶體，沒有寫入 `localStorage` 或傳送到後端。
+目前遊戲進度只存在頁面記憶體，沒有寫入 `localStorage` 或傳送到工作室自有後端。玩家同意分析 Cookie 後，指定的遊戲互動代號會依下方分析事件送往 GA4。
 
 ## 9. 畫面與內容頁
 
@@ -122,9 +123,21 @@ const state = {
 - `/gift-game/articles/practical-gift-mistakes/` 第一篇文章
 - 工作室共用頁尾連到遊戲首頁、送禮研究所、關於我們與隱私權政策
 
-## 10. 尚未啟用與後續評估
+## 10. GA4 分析事件
 
-- GA4、AdSense 與 Cookie 同意工具尚未在遊戲程式啟用。
+- 全站採用基本同意模式；玩家同意分析 Cookie 後才載入 GA4。拒絕時不載入 Google 標籤，也不送出遊戲事件。
+- `game_started`：首次開始遊戲。
+- `holiday_viewed`：顯示一個節日題目，包含 `holiday_id`。
+- `gift_selected`：選擇禮物，包含 `holiday_id`、`gift_id` 與結果類型。
+- `game_completed`：任何結局顯示時送出，包含 `ending_id`、結局分類、最終分數、完成題數，以及 `completion_status`。完整玩完 14 題時為 `full_run`，中途進入結局時為 `early_ending`。
+- `relationship_ended`：分手或求婚失敗時額外送出。
+- `game_restarted`：從結果頁重新開始。
+- `result_shared`：成功複製遊戲連結。
+- 所有遊戲事件都包含 `game_id: "gift-game"`，且不傳送姓名、Email、自由輸入文字或顯示文案。
+
+## 11. 尚未啟用與後續評估
+
+- AdSense 尚未在遊戲程式啟用。
 - 尚未實作進度保存、後端、會員、排行榜或結果圖片下載。
 - 是否加入以上功能，應依公開測試的完成率、重玩率與分享情況再決定。
 - 新增分析、廣告、裝置儲存、表單或第三方服務前，必須先依 `AGENTS.md` 檢查隱私權政策與同意需求。
