@@ -2,20 +2,20 @@ window.GIFT_GAME_DATA = {
   relationshipStartDate: "2025-11-01",
 
   events: [
-    { year: "第一年", date: "2025-12-25", title: "聖誕節", icon: "🎄" },
-    { year: "第一年", date: "2026-02-14", title: "情人節", icon: "💝" },
-    { year: "第二年", date: "2026-06-18", title: "女友生日", icon: "🎂" },
-    { year: "第二年", date: "2026-08-20", title: "東京出差土產", icon: "🗼", isTokyo: true },
-    { year: "第二年", date: "2026-11-01", title: "交往滿一週年紀念日", icon: "🥂" },
-    { year: "第三年", date: "2027-02-14", title: "情人節", icon: "💝" },
-    { year: "第三年", date: "2027-06-18", title: "女友生日", icon: "🎂" },
-    { year: "第三年", date: "2027-11-01", title: "交往滿二週年紀念日", icon: "🥂" },
-    { year: "第四年", date: "2028-06-18", title: "女友生日", icon: "🎂" },
-    { year: "第四年", date: "2028-11-01", title: "交往滿三週年紀念日", icon: "🥂" },
-    { year: "第四年", date: "2028-12-25", title: "聖誕節", icon: "🎄" },
-    { year: "第五年", date: "2029-02-14", title: "情人節", icon: "💝" },
-    { year: "第五年", date: "2029-06-18", title: "女友生日", icon: "🎂" },
-    { year: "第五年", date: "2029-11-01", title: "交往滿四週年紀念日", icon: "🥂" }
+    { id: "holiday-2025-12-25", year: "第一年", date: "2025-12-25", title: "聖誕節", icon: "🎄" },
+    { id: "holiday-2026-02-14", year: "第一年", date: "2026-02-14", title: "情人節", icon: "💝" },
+    { id: "holiday-2026-06-18", year: "第二年", date: "2026-06-18", title: "女友生日", icon: "🎂" },
+    { id: "holiday-2026-08-20", year: "第二年", date: "2026-08-20", title: "東京出差土產", icon: "🗼", isTokyo: true },
+    { id: "holiday-2026-11-01", year: "第二年", date: "2026-11-01", title: "交往滿一週年紀念日", icon: "🥂" },
+    { id: "holiday-2027-02-14", year: "第三年", date: "2027-02-14", title: "情人節", icon: "💝" },
+    { id: "holiday-2027-06-18", year: "第三年", date: "2027-06-18", title: "女友生日", icon: "🎂" },
+    { id: "holiday-2027-11-01", year: "第三年", date: "2027-11-01", title: "交往滿二週年紀念日", icon: "🥂" },
+    { id: "holiday-2028-06-18", year: "第四年", date: "2028-06-18", title: "女友生日", icon: "🎂" },
+    { id: "holiday-2028-11-01", year: "第四年", date: "2028-11-01", title: "交往滿三週年紀念日", icon: "🥂" },
+    { id: "holiday-2028-12-25", year: "第四年", date: "2028-12-25", title: "聖誕節", icon: "🎄" },
+    { id: "holiday-2029-02-14", year: "第五年", date: "2029-02-14", title: "情人節", icon: "💝" },
+    { id: "holiday-2029-06-18", year: "第五年", date: "2029-06-18", title: "女友生日", icon: "🎂" },
+    { id: "holiday-2029-11-01", year: "第五年", date: "2029-11-01", title: "交往滿四週年紀念日", icon: "🥂" }
   ],
 
   generalGifts: [
@@ -66,6 +66,7 @@ window.GIFT_GAME_DATA = {
   ringGift: { id: "proposal-ring", label: "跪下來拿出婚戒，跟她求婚", isRing: true },
 
   proposalSuccessEnding: {
+    id: "proposal-success",
     score: 100,
     type: "恭喜成為準新郎",
     image: "assets/result/boyfriends/proposal-success-boyfriend.webp",
@@ -73,6 +74,7 @@ window.GIFT_GAME_DATA = {
   },
 
   proposalFailureEnding: {
+    id: "proposal-failure",
     score: 0,
     type: "恭喜成為前男友",
     image: "assets/result/boyfriends/proposal-failed-boyfriend.webp",
@@ -88,6 +90,7 @@ window.GIFT_GAME_DATA = {
 
   endingResults: [
     {
+      id: "other-boyfriend",
       minScore: 80,
       maxScore: 100,
       relationshipStatus: "非常甜蜜",
@@ -96,6 +99,7 @@ window.GIFT_GAME_DATA = {
       description: "女友隨口說過的話你比誰記得還清楚，\n說是 90 分沒人敢說自己是 100 分。\n恭喜你成為眾女心中「別人家的男友」，\n勸你低調一點，不要出來破壞市場行情！"
     },
     {
+      id: "survival-master",
       minScore: 60,
       maxScore: 79,
       relationshipStatus: "感情穩定",
@@ -104,6 +108,7 @@ window.GIFT_GAME_DATA = {
       description: "大部分時候都能精準命中女友的喜好，\n雖然偶爾也會踩個小雷，\n但靠著一片真心也總是能安全下莊！\n戀愛不一定要滿分，活到最後才是高手。"
     },
     {
+      id: "cautious-boyfriend",
       minScore: 40,
       maxScore: 59,
       relationshipStatus: "開始有摩擦",
@@ -112,6 +117,7 @@ window.GIFT_GAME_DATA = {
       description: "「這個……應該不會錯吧？」\n送女友禮物總是搞得像在打仗一樣，\n小心翼翼深怕一不小心就被砍頭。\n下次放鬆心情挑選禮物，\n說不定會有不一樣的收穫喔！"
     },
     {
+      id: "miracle-survivor",
       minScore: 20,
       maxScore: 39,
       relationshipStatus: "關係危險",
@@ -120,6 +126,7 @@ window.GIFT_GAME_DATA = {
       description: "「咦怎麼突然生氣了？」\n送禮基本靠心情，\n從來沒發現自己撿回好幾條小命的樂天派，\n卻總能莫名其妙活到最後（？"
     },
     {
+      id: "giving-up-boyfriend",
       minScore: 1,
       maxScore: 19,
       relationshipStatus: "分手邊緣",
@@ -128,6 +135,7 @@ window.GIFT_GAME_DATA = {
       description: "「蛤？我又做錯什麼了？」\n每次看她臉色不對，\n才開始瘋狂回想自己到底做了什麼。\n能撐到現在，可能已經是奇蹟了……\n友情提醒：現在道歉可能還來得及喔！"
     },
     {
+      id: "breakup",
       minScore: 0,
       maxScore: 0,
       relationshipStatus: "關係破裂",
