@@ -2,7 +2,7 @@
 
 一款手機優先的情侶送禮選擇遊戲。玩家會在不同節日與紀念日挑選禮物，觀察女友反應、好感度變化與最後結局。
 
-正式遊戲網址：<https://tutu-playlab.github.io/gift-game/>
+正式遊戲網址：<https://twomoregames.space/gift-game/>
 
 ## 目前版本
 
