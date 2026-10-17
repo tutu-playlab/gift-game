@@ -53,7 +53,7 @@
 - 送禮主題文章屬於《送禮大作戰》，文章列表放在 `/gift-game/articles/`，單篇文章放在 `/gift-game/articles/{文章代稱}/`。
 - 未來新增的遊戲使用自己的頂層路徑，例如 `/{game-name}/`；若有專屬文章，放在 `/{game-name}/articles/`。
 - 《送禮大作戰》頁尾預計包含「送禮研究所」→ `/gift-game/articles/`、「關於我們」→ `/#about`、「隱私權政策」→ `/privacy/`。
-- 「隱私與 Cookie 設定」是 Cookie 同意管理工具的設定按鈕，不是內容頁。尚未啟用相關工具時不顯示，啟用後再加入頁尾。
+- 分析 Cookie 的重新設定入口放在 `/privacy/` 隱私權政策頁，不在全站頁尾另外顯示自製的 Cookie 設定按鈕。未來啟用 AdSense 時，另依 Google CMP 的要求提供適用的廣告同意與撤回入口。
 - 取得 AdSense Publisher ID 後，要在工作室首頁 Repository 的網站根目錄新增 Google 提供的正式 `ads.txt` 紀錄，並確認 `/ads.txt` 可正常開啟；取得 ID 前不建立假資料或佔位檔。
 
 《送禮大作戰》的正式網址為 `https://twomoregames.space/gift-game/`。自訂網域只更換網域名稱並保留上述路徑，避免既有連結與搜尋紀錄失效。
